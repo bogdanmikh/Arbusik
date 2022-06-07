@@ -27,7 +27,7 @@ int main() {
         std::cout << "GLFW initialization failed\n";
         return -1;
     }
-    std::cout << "Arbusik version 0.0\n";
+    std::cout << "Arbusik version 0.1\n";
 
     GLFWwindow* window;
     window = glfwCreateWindow(640, 480, "OpenGl", NULL, NULL);
@@ -43,17 +43,20 @@ int main() {
         std::cout << "Failed to initialize OpenGL context" << std::endl;
         return -1;
     }
-    float *data = new float[6] {
+    float *data = new float[12] {
         0.5f, 0.5f,
         -0.5f, 0.5f,
-        -0.5f, -0.5f
+        -0.5f, -0.5f,
+         0.5f, -0.5f,
+        -0.5f, -0.5f,
+        0.5f, 0.5f
     };
-
+    
     unsigned int buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6, data, GL_STATIC_DRAW);
-
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 12, data, GL_STATIC_DRAW);
+    
     const char* vertex_shader_text =
     "#version 330\n"
     "layout (location = 0) in vec2 aPos;\n"
@@ -91,7 +94,7 @@ int main() {
     glEnableVertexAttribArray(vpos_location);
     glVertexAttribPointer(
         vpos_location, 2, GL_FLOAT, GL_FALSE,
-        sizeof(float) * 2, (void*) 0
+        sizeof(float) * 2, (void*) 0 
     );
 
     glClearColor(0.5f, 0.5f, 0.7f, 1.0f);
@@ -105,7 +108,7 @@ int main() {
 
         glUseProgram(program);
         glUniform1f(time_location, time);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
