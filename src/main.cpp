@@ -1,6 +1,8 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <fstream>
+#include <sstream>
 
 void checkCompileErrors(GLuint shader, std::string type) {
     GLint success;
@@ -65,13 +67,17 @@ int main() {
     "    gl_Position = vec4(aPos, 0.0, 1.0);\n"
     "}\n";
 
-    const char* fragment_shader_text =
-    "#version 330\n"
-    "uniform float u_time;\n"
-    "void main()\n"
-    "{\n"
-    "    gl_FragColor = vec4(abs(sin(u_time * 1.5)), 1.0, 1.0, 1.0);\n"
-    "}\n";
+    std::fstream fragment_shader_file;
+    fragment_shader_file.open("../../fst.glsl");
+    if (!fragment_shader_file.is_open()){
+        std::cout << "Cannot open fragment shader file" << std::endl;
+        return -1;
+    }
+    std::stringstream fragmentSnaderStream;
+    fragmentSnaderStream << fragment_shader_file.rdbuf();
+    fragment_shader_file.close();
+    std::string fragmentShaderCodeString = fragmentSnaderStream.str();
+    const char* fragment_shader_text = fragmentShaderCodeString.c_str();
 
     int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertex_shader, 1, &vertex_shader_text, NULL);
