@@ -36,7 +36,7 @@ int main() {
     }
     Vector2 resolution = { 640., 480. };
     Vector2 mousePos = { 0., 0. };
-    std::cout << "Arbusik version 0.1\n";
+    std::cout << "Arbusik version 0.2\n";
 
     GLFWwindow* window;
     window = glfwCreateWindow(resolution.x, resolution.y, "OpenGl", NULL, NULL);
