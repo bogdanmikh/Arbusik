@@ -29,10 +29,12 @@ int main() {
         std::cout << "GLFW initialization failed\n";
         return -1;
     }
+    float x_resolution = 640.f;
+    float y_resolution = 480.f;
     std::cout << "Arbusik version 0.1\n";
 
     GLFWwindow* window;
-    window = glfwCreateWindow(640, 480, "OpenGl", NULL, NULL);
+    window = glfwCreateWindow(x_resolution, y_resolution, "OpenGl", NULL, NULL);
 
     if (!window) {
         std::cout << "GLFW window creation failed\n";
@@ -46,12 +48,18 @@ int main() {
         return -1;
     }
     float *data = new float[12] {
-        0.5f, 0.5f,
-        -0.5f, 0.5f,
-        -0.5f, -0.5f,
-         0.5f, -0.5f,
-        -0.5f, -0.5f,
-        0.5f, 0.5f
+        // 0.5f, 0.5f,
+        // -0.5f, 0.5f,
+        // -0.5f, -0.5f,
+        //  0.5f, -0.5f,
+        // -0.5f, -0.5f,
+        // 0.5f, 0.5f
+         1.f, 1.f,
+        -1.f, 1.f,
+        -1.f, -1.f,
+         1.f, -1.f,
+        -1.f, -1.f,
+        1.f, 1.f
     };
     
     unsigned int buffer;
@@ -103,17 +111,17 @@ int main() {
         sizeof(float) * 2, (void*) 0 
     );
 
-    glClearColor(0.5f, 0.5f, 0.7f, 1.0f);
+    glClearColor(1.0f, 0.5f, 0.7f, 1.0f);
     uint32_t time_location = glGetUniformLocation(program, "u_time");
+    uint32_t resolution_location = glGetUniformLocation(program, "u_resolution");
 
-    float time = 0.f;
     while (!glfwWindowShouldClose(window)) {
-        time += 0.0001f;
         glClear(GL_COLOR_BUFFER_BIT);
         // ALL HERE
 
         glUseProgram(program);
-        glUniform1f(time_location, time);
+        glUniform1f(time_location, glfwGetTime());
+        glUniform2f(resolution_location, x_resolution, y_resolution);
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
         glfwSwapBuffers(window);
