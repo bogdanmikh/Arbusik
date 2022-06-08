@@ -24,17 +24,22 @@ void checkCompileErrors(GLuint shader, std::string type) {
     }
 }
 
+struct Vector2 {
+    double x;
+    double y;
+};
+
 int main() {
     if(glfwInit() != GLFW_TRUE) {
         std::cout << "GLFW initialization failed\n";
         return -1;
     }
-    float x_resolution = 640.f;
-    float y_resolution = 480.f;
+    Vector2 resolution = { 640., 480. };
+    Vector2 mousePos = { 0., 0. };
     std::cout << "Arbusik version 0.1\n";
 
     GLFWwindow* window;
-    window = glfwCreateWindow(x_resolution, y_resolution, "OpenGl", NULL, NULL);
+    window = glfwCreateWindow(resolution.x, resolution.y, "OpenGl", NULL, NULL);
 
     if (!window) {
         std::cout << "GLFW window creation failed\n";
@@ -114,15 +119,29 @@ int main() {
     glClearColor(1.0f, 0.5f, 0.7f, 1.0f);
     uint32_t time_location = glGetUniformLocation(program, "u_time");
     uint32_t resolution_location = glGetUniformLocation(program, "u_resolution");
+    uint32_t mouse_location = glGetUniformLocation(program, "u_mouse");
 
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);
         // ALL HERE
 
+        glfwGetCursorPos(window, &mousePos.x, &mousePos.y);
+
         glUseProgram(program);
         glUniform1f(time_location, glfwGetTime());
-        glUniform2f(resolution_location, x_resolution, y_resolution);
+        glUniform2f(resolution_location, resolution.x, resolution.y);
+        glUniform2f(mouse_location, mousePos.x, resolution.y - mousePos.y);
         glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+            glfwSetWindowShouldClose(window, true);
+        }
+
+        int w, h;
+        glfwGetWindowSize(window, &w, &h);
+        glViewport(0, 0, w, h);
+        resolution.x = w;
+        resolution.y = h;
 
         glfwSwapBuffers(window);
         glfwPollEvents();
