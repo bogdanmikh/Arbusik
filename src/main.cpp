@@ -36,9 +36,9 @@ int main() {
     }
     Vector2 resolution = { 640., 480. };
     Vector2 mousePos = { 0., 0. };
+    GLFWwindow* window;
     std::cout << "Arbusik version 0.1\n";
 
-    GLFWwindow* window;
     window = glfwCreateWindow(resolution.x, resolution.y, "OpenGl", NULL, NULL);
 
     if (!window) {
@@ -52,7 +52,7 @@ int main() {
         std::cout << "Failed to initialize OpenGL context" << std::endl;
         return -1;
     }
-    float *data = new float[12] {
+    float *data = new float[6] {
         // 0.5f, 0.5f,
         // -0.5f, 0.5f,
         // -0.5f, -0.5f,
@@ -62,23 +62,28 @@ int main() {
          1.f, 1.f,
         -1.f, 1.f,
         -1.f, -1.f,
-         1.f, -1.f,
-        -1.f, -1.f,
-        1.f, 1.f
+        //  1.f, -1.f,
+        // -1.f, -1.f,
+        // 1.f, 1.f
     };
     
     unsigned int buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 12, data, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6, data, GL_STATIC_DRAW);
     
-    const char* vertex_shader_text =
-    "#version 330\n"
-    "layout (location = 0) in vec2 aPos;\n"
-    "void main()\n"
-    "{\n"
-    "    gl_Position = vec4(aPos, 0.0, 1.0);\n"
-    "}\n";
+    std::fstream vertex_shader_file;
+    vertex_shader_file.open("../../vst.glsl");
+    if (!vertex_shader_file.is_open()){
+        std::cout << "Cannot open vertex shader file" << std::endl;
+        return -1;
+    }
+
+    std::stringstream vertexSnaderStream;
+    vertexSnaderStream << vertex_shader_file.rdbuf();
+    vertex_shader_file.close();
+    std::string vertexShaderCodeString = vertexSnaderStream.str();
+    const char* vertex_shader_text = vertexShaderCodeString.c_str();
 
     std::fstream fragment_shader_file;
     fragment_shader_file.open("../../fst.glsl");
@@ -121,9 +126,16 @@ int main() {
     uint32_t resolution_location = glGetUniformLocation(program, "u_resolution");
     uint32_t mouse_location = glGetUniformLocation(program, "u_mouse");
 
+    int k = 0;
+    bool b_k = true;
+    bool b_data;
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);
         // ALL HERE
+        b_k = (k == 6)? false : (k == 0)? true : b_k; 
+        k = (b_k)? k++ : k--;  
+        data[k] = (data[k] == 1)? data[k] -= 1 : data[k] += 0.05;
+        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6, data, GL_STATIC_DRAW);
 
         glfwGetCursorPos(window, &mousePos.x, &mousePos.y);
 
@@ -136,7 +148,10 @@ int main() {
         if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             glfwSetWindowShouldClose(window, true);
         }
-
+        if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_KEY_F) {
+           // gl(window, true);
+           
+        }
         int w, h;
         glfwGetWindowSize(window, &w, &h);
         glViewport(0, 0, w, h);
