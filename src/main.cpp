@@ -3,31 +3,8 @@
 #include <GLFW/glfw3.h>
 #include <fstream>
 #include <sstream>
-
-void checkCompileErrors(GLuint shader, std::string type) {
-    GLint success;
-    GLchar infoLog[1024];
-    if (type != "PROGRAM") {
-        glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-        if (!success) {
-            glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-            std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n"
-                      << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
-        }
-    } else {
-        glGetProgramiv(shader, GL_LINK_STATUS, &success);
-        if (!success) {
-            glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-            std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n"
-                      << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
-        }
-    }
-}
-
-struct Vector2 {
-    double x;
-    double y;
-};
+#include "Shader.hpp"
+#include "vec2.hpp"
 
 int main() {
     if(glfwInit() != GLFW_TRUE) {
@@ -71,59 +48,17 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6, data, GL_STATIC_DRAW);
     
-    std::fstream vertex_shader_file;
-    vertex_shader_file.open("../../vst.glsl");
-    if (!vertex_shader_file.is_open()){
-        std::cout << "Cannot open vertex shader file" << std::endl;
-        return -1;
-    }
+    //begin
+    Shader shader("../../vst.glsl","../../fst.glsl");
+    //end
 
-    std::stringstream vertexSnaderStream;
-    vertexSnaderStream << vertex_shader_file.rdbuf();
-    vertex_shader_file.close();
-    std::string vertexShaderCodeString = vertexSnaderStream.str();
-    const char* vertex_shader_text = vertexShaderCodeString.c_str();
-
-    std::fstream fragment_shader_file;
-    fragment_shader_file.open("../../fst.glsl");
-    if (!fragment_shader_file.is_open()){
-        std::cout << "Cannot open fragment shader file" << std::endl;
-        return -1;
-    }
-    std::stringstream fragmentSnaderStream;
-    fragmentSnaderStream << fragment_shader_file.rdbuf();
-    fragment_shader_file.close();
-    std::string fragmentShaderCodeString = fragmentSnaderStream.str();
-    const char* fragment_shader_text = fragmentShaderCodeString.c_str();
-
-    int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertex_shader, 1, &vertex_shader_text, NULL);
-    glCompileShader(vertex_shader);
-    checkCompileErrors(vertex_shader, "VERTEX");
-
-    int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragment_shader_text, NULL);
-    glCompileShader(fragmentShader);
-    checkCompileErrors(fragmentShader, "FRAGMENT");
-
-    int program = glCreateProgram();
-    glAttachShader(program, vertex_shader);
-    glAttachShader(program, fragmentShader);
-    glLinkProgram(program);
-    checkCompileErrors(program, "PROGRAM");
-    glDeleteShader(fragmentShader);
-
-    uint32_t vpos_location = glGetAttribLocation(program, "aPos");
-    glEnableVertexAttribArray(vpos_location);
+    glEnableVertexAttribArray(0);
     glVertexAttribPointer(
-        vpos_location, 2, GL_FLOAT, GL_FALSE,
+        0, 2, GL_FLOAT, GL_FALSE,
         sizeof(float) * 2, (void*) 0 
     );
 
     glClearColor(1.0f, 0.5f, 0.7f, 1.0f);
-    uint32_t time_location = glGetUniformLocation(program, "u_time");
-    uint32_t resolution_location = glGetUniformLocation(program, "u_resolution");
-    uint32_t mouse_location = glGetUniformLocation(program, "u_mouse");
 
     int k = 0;
     bool b_k = true;
@@ -138,10 +73,11 @@ int main() {
 
         glfwGetCursorPos(window, &mousePos.x, &mousePos.y);
 
-        glUseProgram(program);
-        glUniform1f(time_location, glfwGetTime());
-        glUniform2f(resolution_location, resolution.x, resolution.y);
-        glUniform2f(mouse_location, mousePos.x, resolution.y - mousePos.y);
+        shader.use();
+        shader.setFloat("u_time", glfwGetTime());
+        shader.setVec2("u_resolution", { resolution.x, resolution.y });
+        shader.setVec2("u_mouse", { mousePos.x, resolution.y - mousePos.y });
+
         glDrawArrays(GL_TRIANGLES, 0, 6);
         
         if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
@@ -149,7 +85,6 @@ int main() {
         }
         if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_KEY_F) {
            // gl(window, true);
-           
         }
         int w, h;
         glfwGetWindowSize(window, &w, &h);
@@ -162,6 +97,5 @@ int main() {
     }
 
     delete[] data;
-    glDeleteProgram(program);
     glfwTerminate();
 }

@@ -4,7 +4,7 @@ project("Dincka")
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Dincka src/main.cpp)
+add_executable(Dincka src/main.cpp src/Shader.cpp src/Window.cpp)
 
 # GLFW
 add_subdirectory(vendor/glfw)
