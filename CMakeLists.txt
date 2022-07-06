@@ -4,7 +4,27 @@ project("Dincka")
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Dincka src/main.cpp src/Shader.cpp src/Window.cpp)
+add_executable(Dincka 
+    src/main.cpp 
+    src/Renderer/Renderer.cpp
+    src/Renderer/Renderer.hpp
+    src/Renderer/IndexBuffer.cpp
+    src/Renderer/IndexBuffer.hpp
+    src/Renderer/Mesh.cpp
+    src/Renderer/Mesh.hpp
+    src/Renderer/Shader.cpp
+    src/Renderer/Shader.hpp
+    src/Renderer/Texture.cpp
+    src/Renderer/Texture.hpp
+    src/Renderer/VertexArray.cpp
+    src/Renderer/VertexArray.hpp
+    src/Renderer/VertexBuffer.cpp
+    src/Renderer/VertexBuffer.hpp
+    src/Renderer/VertexBufferLayout.hpp
+    src/Window/Key.hpp
+    src/Window/Window.cpp
+    src/Window/Window.hpp
+)
 
 # GLFW
 add_subdirectory(vendor/glfw)
@@ -17,3 +37,15 @@ add_subdirectory(vendor/glad)
 
 target_link_libraries(Dincka glad)
 target_include_directories(Dincka PRIVATE vendor/glad/include)
+
+# GLM
+add_subdirectory(vendor/glm)
+
+target_link_libraries(Dincka glm)
+target_include_directories(Dincka PRIVATE vendor/glm)
+
+# STB_IMAGE
+add_subdirectory(vendor/stb_image)
+
+target_link_libraries(Dincka stb_image)
+target_include_directories(Dincka PRIVATE vendor/stb_image)
