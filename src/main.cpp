@@ -1,6 +1,7 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "Window.hpp"
 #include <fstream>
 #include <sstream>
 #include "Shader.hpp"
@@ -15,15 +16,8 @@ int main() {
     Vector2 mousePos = { 0., 0. };
     std::cout << "Arbusik version 0.2\n";
 
-    GLFWwindow* window = glfwCreateWindow(resolution.x, resolution.y, "OpenGl", NULL, NULL);
+    Window window("OpenGl", resolution.x, resolution.y);
 
-    if (!window) {
-        std::cout << "GLFW window creation failed\n";
-        glfwTerminate();
-        return -1;
-    }
-
-    glfwMakeContextCurrent(window);
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
         std::cout << "Failed to initialize OpenGL context" << std::endl;
         return -1;
@@ -63,7 +57,7 @@ int main() {
     int k = 0;
     bool b_k = true;
     bool b_data;
-    while (!glfwWindowShouldClose(window)) {
+    while (!glfwWindowShouldClose(window.getWindow())) {
         glClear(GL_COLOR_BUFFER_BIT);
         // ALL HERE
         b_k = (k == 6)? false : (k == 0)? true : b_k; 
@@ -71,7 +65,7 @@ int main() {
         data[k] = (data[k] == 1)? data[k] -= 1 : data[k] += 0.05;
         glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6, data, GL_STATIC_DRAW);
 
-        glfwGetCursorPos(window, &mousePos.x, &mousePos.y);
+        glfwGetCursorPos(window.getWindow(), &mousePos.x, &mousePos.y);
 
         shader.use();
         shader.setFloat("u_time", glfwGetTime());
@@ -80,19 +74,19 @@ int main() {
 
         glDrawArrays(GL_TRIANGLES, 0, 6);
         
-        if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-            glfwSetWindowShouldClose(window, true);
+        if(glfwGetKey(window.getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+            glfwSetWindowShouldClose(window.getWindow(), true);
         }
-        if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_KEY_F) {
+        if(glfwGetKey(window.getWindow(), GLFW_KEY_ESCAPE) == GLFW_KEY_F) {
            // gl(window, true);
         }
         int w, h;
-        glfwGetWindowSize(window, &w, &h);
+        glfwGetWindowSize(window.getWindow(), &w, &h);
         glViewport(0, 0, w, h);
         resolution.x = w;
         resolution.y = h;
 
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(window.getWindow());
         glfwPollEvents();
     }
 
