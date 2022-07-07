@@ -15,7 +15,7 @@ Window::Window(const char* name, double resolution_x, double resolution_y) {
         glfwTerminate();
     }
     glfwMakeContextCurrent(window);
-
+    glfwSwapInterval(1);
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
         std::cout << "Failed to initialize OpenGL context" << std::endl;
     }
