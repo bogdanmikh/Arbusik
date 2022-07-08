@@ -4,11 +4,13 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-Window::Window(const char* name, double resolution_x, double resolution_y) {
+Window::Window(const char* name, double resolution_x, double resolution_y)
+    : cursorLocked(false) {
     if(glfwInit() != GLFW_TRUE) {
         std::cout << "GLFW initialization failed\n";
         return;
     }
+
     GLFWwindow* window = glfwCreateWindow(resolution_x, resolution_y, name, NULL, NULL);
     if (!window) {
         std::cout << "GLFW window creation failed\n";
@@ -60,4 +62,13 @@ void Window::swapBuffers() {
 
 void Window::pollEvents() {
     glfwPollEvents();
+}
+
+void Window::toggleCursorLock() {
+    cursorLocked = cursorLocked == false;
+    glfwSetInputMode((GLFWwindow*) handle, GLFW_CURSOR, cursorLocked ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
+}
+
+bool Window::isCursorLocked() {
+    return cursorLocked;
 }

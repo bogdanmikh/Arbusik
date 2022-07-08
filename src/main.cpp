@@ -62,6 +62,8 @@ int main() {
 
     timeMillis = getMillis();
     float bias = 1.2f;
+    float n = 0.1f;
+    window.toggleCursorLock();
     while (window.shouldClose() == false) {
         uint64_t lastTime = timeMillis;
         timeMillis = getMillis();
@@ -82,7 +84,10 @@ int main() {
         double deltaTime = deltaTimeMillis / 1000.0;
         deltaTimeMillis = 0;
         Renderer::clear();
-        mousePos = window.getCursorPos();
+
+        glm::vec2 newMousePos = window.getCursorPos();
+        camera.rotate((mousePos.y - newMousePos.y) * n, (mousePos.x - newMousePos.x) * n, 0.f);
+        mousePos = newMousePos;
 
         vertexArray.bind();
 
@@ -93,8 +98,7 @@ int main() {
         shader.setVec2("u_resolution", { resolution.x, resolution.y });
         shader.setVec2("u_mouse", { mousePos.x, resolution.y - mousePos.y });
 
-        glm::mat4 model = glm::translate(glm::mat4(1.f), position);
-        shader.setMat4("model", model);
+        shader.setMat4("model", glm::mat4(1.f));
 
         Renderer::drawArrays(6);
         
@@ -102,14 +106,14 @@ int main() {
             window.setShouldClose();
         }
 
-        if(window.isKeyPressed(Key::W)){
-            position.y += (bias * deltaTime);
-        } else if(window.isKeyPressed(Key::D)){
-            position.x += (bias * deltaTime);
-        } else if(window.isKeyPressed(Key::A)){
-            position.x -= (bias * deltaTime);
-        } else if(window.isKeyPressed(Key::S)){
-            position.y -= (bias * deltaTime);
+        if(window.isKeyPressed(Key::W)) {
+            camera.translateLocal(0.f, 0.f, bias * deltaTime);
+        } else if(window.isKeyPressed(Key::D)) {
+            camera.translateLocal(bias * deltaTime, 0.f, 0.f);
+        } else if(window.isKeyPressed(Key::A)) {
+            camera.translateLocal(-bias * deltaTime, 0.f, 0.f);
+        } else if(window.isKeyPressed(Key::S)) {
+            camera.translateLocal(0.f, 0.f, -bias * deltaTime);
         }
 
         resolution = window.getSize();

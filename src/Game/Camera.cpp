@@ -75,6 +75,16 @@ void Camera::translate(float x, float y, float z) {
     updateViewMatrix();
 }
 
+void Camera::translateLocal(float x, float y, float z) {
+    if (x == 0 && y == 0 && z == 0) {
+        return;
+    }
+    position += right * x;
+    position += up * y;
+    position += front * z;
+    updateViewMatrix();
+}
+
 void Camera::setPosition(float x, float y, float z) {
     if (position.x == x && position.y == y && position.z == z) {
         return;

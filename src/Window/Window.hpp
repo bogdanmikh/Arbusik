@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include "Key.hpp"
 
-class Window{
+class Window {
 public:
     Window(const char* name, double resolution_x, double resolution_y);
     ~Window();
@@ -12,9 +12,12 @@ public:
     glm::vec2 getSize();
     double getTime();
     bool isKeyPressed(Key key);
+    void toggleCursorLock();
+    bool isCursorLocked();
     void setShouldClose();
     void swapBuffers();
     void pollEvents();
 private:
     void* handle;
+    bool cursorLocked;
 };

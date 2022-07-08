@@ -15,6 +15,7 @@ public:
     void setRotation(float x, float y, float z);
     void translate(float x, float y, float z);
     void setPosition(float x, float y, float z);
+    void translateLocal(float x, float y, float z);
 
 private:
     void updateVectors();
