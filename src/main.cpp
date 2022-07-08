@@ -1,7 +1,6 @@
 #include <iostream>
 #include <chrono>
 #include <glm/glm.hpp>
-#include <glm/ext.hpp>
 
 #include "Window/Window.hpp"
 #include "Game/Camera.hpp"
@@ -10,7 +9,7 @@
 #include "Renderer/VertexBuffer.hpp"
 #include "Renderer/VertexBufferLayout.hpp"
 #include "Renderer/VertexArray.hpp"
-#include "Renderer/Texture.hpp"
+#include "Game/Sprite.hpp"
 
 int         maximumFps = 60;
 uint64_t    oneSecondTimeCount = 0;
@@ -30,30 +29,15 @@ int main() {
 
     std::cout << "Arbusik version 0.2\n";
     Window window("OpenGl", resolution.x, resolution.y);
-    
-    float *data = new float[24] {
-         1.f, 1.f, 1.f, 0.f,
-        -1.f, 1.f, 0.f, 0.f,
-        -1.f, -1.f, 0.f, 1.f,
-         1.f, -1.f, 1.f, 1.f,
-        -1.f, -1.f, 0.f, 1.f,
-         1.f, 1.f, 1.f, 0.f
-    };
-    VertexBuffer buffer(data, sizeof(float) * 24);
 
-    Texture texture("../../resources/textures/Ship.png");
     Shader shader("../../resources/shaders/vst.glsl","../../resources/shaders/fst.glsl");
+    Sprite sprite1("../../resources/textures/Human.jpg", &shader);
+    Sprite sprite2("../../resources/textures/Earth.png", &shader);
 
-    VertexBufferLayout layout;
-    layout.push<glm::vec2>(1);
-    layout.push<glm::vec2>(1);
-
-    VertexArray vertexArray;
-    vertexArray.addBuffer(buffer, layout);
+    sprite2.setPosition(0.f, -1.9f, 0.f);
 
     Renderer::setClearColor(1.0f, 0.5f, 0.7f, 1.0f);
 
-    glm::vec3 position(0.f, 0.f, 1.f);
     Camera camera;
     camera.setShader(&shader);
     camera.setFieldOfView(glm::radians(60.f));
@@ -61,8 +45,8 @@ int main() {
     camera.setPosition(0.f, 0.f, 5.f);
 
     timeMillis = getMillis();
-    float bias = 1.2f;
-    float n = 0.1f;
+    float bias = 3.5f;
+    float mouseSpeed = 0.1f;
     window.toggleCursorLock();
     while (window.shouldClose() == false) {
         uint64_t lastTime = timeMillis;
@@ -86,35 +70,30 @@ int main() {
         Renderer::clear();
 
         glm::vec2 newMousePos = window.getCursorPos();
-        camera.rotate((mousePos.y - newMousePos.y) * n, (mousePos.x - newMousePos.x) * n, 0.f);
+        //camera.rotate(- (mousePos.y - newMousePos.y) * mouseSpeed, - (mousePos.x - newMousePos.x) * mouseSpeed, 0.f);
         mousePos = newMousePos;
-
-        vertexArray.bind();
-
-        texture.bind();
 
         shader.use();
         shader.setFloat("u_time", window.getTime());
         shader.setVec2("u_resolution", { resolution.x, resolution.y });
         shader.setVec2("u_mouse", { mousePos.x, resolution.y - mousePos.y });
 
-        shader.setMat4("model", glm::mat4(1.f));
+        sprite1.draw();
+        sprite2.draw();
 
-        Renderer::drawArrays(6);
-        
         if(window.isKeyPressed(Key::ESCAPE)) {
             window.setShouldClose();
         }
 
-        if(window.isKeyPressed(Key::W)) {
-            camera.translateLocal(0.f, 0.f, bias * deltaTime);
-        } else if(window.isKeyPressed(Key::D)) {
-            camera.translateLocal(bias * deltaTime, 0.f, 0.f);
-        } else if(window.isKeyPressed(Key::A)) {
-            camera.translateLocal(-bias * deltaTime, 0.f, 0.f);
-        } else if(window.isKeyPressed(Key::S)) {
-            camera.translateLocal(0.f, 0.f, -bias * deltaTime);
-        }
+        // if(window.isKeyPressed(Key::W)) {
+        //     camera.translateLocal(0.f, 0.f, bias * deltaTime);
+        // } else if(window.isKeyPressed(Key::D)) {
+        //     camera.translateLocal(bias * deltaTime, 0.f, 0.f);
+        // } else if(window.isKeyPressed(Key::A)) {
+        //     camera.translateLocal(-bias * deltaTime, 0.f, 0.f);
+        // } else if(window.isKeyPressed(Key::S)) {
+        //     camera.translateLocal(0.f, 0.f, -bias * deltaTime);
+        // }
 
         resolution = window.getSize();
         camera.updateAspectRatio(resolution.x / resolution.y);
@@ -123,6 +102,4 @@ int main() {
         window.swapBuffers();
         window.pollEvents();
     }
-
-    delete[] data;
 }

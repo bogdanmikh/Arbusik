@@ -8,6 +8,8 @@ add_executable(Dincka
     src/main.cpp 
     src/Game/Camera.hpp
     src/Game/Camera.cpp
+    src/Game/Sprite.hpp
+    src/Game/Sprite.cpp
     src/Renderer/Renderer.cpp
     src/Renderer/Renderer.hpp
     src/Renderer/IndexBuffer.cpp
