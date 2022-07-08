@@ -1,7 +1,10 @@
 #include <iostream>
 #include <chrono>
 #include <glm/glm.hpp>
+#include <glm/ext.hpp>
+
 #include "Window/Window.hpp"
+#include "Game/Camera.hpp"
 #include "Renderer/Renderer.hpp"
 #include "Renderer/Shader.hpp"
 #include "Renderer/VertexBuffer.hpp"
@@ -22,7 +25,7 @@ uint64_t getMillis() {
 }
 
 int main() {
-    glm::vec2 resolution = { 640., 480. };
+    glm::vec2 resolution = { 640.f, 480.f };
     glm::vec2 mousePos = { 0., 0. };
 
     std::cout << "Arbusik version 0.2\n";
@@ -50,7 +53,13 @@ int main() {
 
     Renderer::setClearColor(1.0f, 0.5f, 0.7f, 1.0f);
 
-    glm::vec2 position(0.f);
+    glm::vec3 position(0.f, 0.f, 1.f);
+    Camera camera;
+    camera.setShader(&shader);
+    camera.setFieldOfView(glm::radians(60.f));
+    camera.setRotation(0.f, 0.f, 0.f);
+    camera.setPosition(0.f, 0.f, 5.f);
+
     timeMillis = getMillis();
     float bias = 1.2f;
     while (window.shouldClose() == false) {
@@ -83,7 +92,9 @@ int main() {
         shader.setFloat("u_time", window.getTime());
         shader.setVec2("u_resolution", { resolution.x, resolution.y });
         shader.setVec2("u_mouse", { mousePos.x, resolution.y - mousePos.y });
-        shader.setVec2("transform", position);
+
+        glm::mat4 model = glm::translate(glm::mat4(1.f), position);
+        shader.setMat4("model", model);
 
         Renderer::drawArrays(6);
         
@@ -102,6 +113,7 @@ int main() {
         }
 
         resolution = window.getSize();
+        camera.updateAspectRatio(resolution.x / resolution.y);
         Renderer::setRenderBufferSize(resolution.x, resolution.y);
 
         window.swapBuffers();

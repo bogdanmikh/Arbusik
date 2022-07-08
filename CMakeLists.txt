@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(Dincka 
     src/main.cpp 
+    src/Game/Camera.hpp
+    src/Game/Camera.cpp
     src/Renderer/Renderer.cpp
     src/Renderer/Renderer.hpp
     src/Renderer/IndexBuffer.cpp
@@ -25,6 +27,7 @@ add_executable(Dincka
     src/Window/Window.cpp
     src/Window/Window.hpp
 )
+target_include_directories(Dincka PRIVATE src)
 
 # GLFW
 add_subdirectory(vendor/glfw)
