@@ -13,7 +13,14 @@ public:
     Sprite(std::string texturePath, Shader* shader);
     ~Sprite();
     void setPosition(float x, float y, float z);
+    void translate(float x, float y, float z);
     void setSize(float width, float height);
+
+    float getMaxY();
+    float getMinY();
+    float getMaxX();
+    float getMinX();
+
     void draw();
 private:
     void updateModelMatrix();

@@ -18,3 +18,15 @@ void World::deleteActor(GameObject* actor) {
 std::vector<GameObject*>& World::getAllActors() {
     return gameObjects;
 }
+
+std::vector<GameObject*> World::getAllCollisions() {
+    std::vector<GameObject*> result;
+ 
+    for (int i = 0; i < gameObjects.size(); i++) {
+        if (gameObjects[i]->isCollision) {
+            result.push_back(gameObjects[i]);
+        }
+    }
+ 
+    return result;
+}

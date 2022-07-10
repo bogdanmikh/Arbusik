@@ -24,13 +24,15 @@ Application::Application() {
     std::cout << "Arbusik version 0.2\n";
 
     window = new Window("OpenGl", 640, 480);
-
     Renderer::init();
 
     shader = new Shader("../../resources/shaders/vst.glsl","../../resources/shaders/fst.glsl");
 
     world.addActor(new Player(shader));
-    world.addActor(new Ground(shader));
+    auto ground = new Ground(shader);
+    ground->setPosition(-5.f, 0.f, 0.f);
+    ground->setSize(10.f, 6.f);
+    world.addActor(ground);
 
     Renderer::setClearColor(1.0f, 0.5f, 0.7f, 1.0f);
 
@@ -41,8 +43,6 @@ Application::Application() {
     camera->setPosition(0.f, 0.f, 5.f);
 
     timeMillis = getMillis();
-    float bias = 3.5f;
-    float mouseSpeed = 0.1f;
 }
 
 Application::~Application() {
@@ -77,25 +77,11 @@ void Application::loop() {
         deltaTimeMillis = 0;
         Renderer::clear();
 
-        glm::vec2 newMousePos = window->getCursorPos();
-        // camera.rotate(- (mousePos.y - newMousePos.y) * mouseSpeed, - (mousePos.x - newMousePos.x) * mouseSpeed, 0.f);
-        // mousePos = newMousePos;
-
         world.update(deltaTime);
 
         if(window->isKeyPressed(Key::ESCAPE)) {
             window->setShouldClose();
         }
-
-        // if(window->isKeyPressed(Key::W)) {
-        //     camera.translateLocal(0.f, 0.f, bias * deltaTime);
-        // } else if(window->isKeyPressed(Key::D)) {
-        //     camera.translateLocal(bias * deltaTime, 0.f, 0.f);
-        // } else if(window->isKeyPressed(Key::A)) {
-        //     camera.translateLocal(-bias * deltaTime, 0.f, 0.f);
-        // } else if(window->isKeyPressed(Key::S)) {
-        //     camera.translateLocal(0.f, 0.f, -bias * deltaTime);
-        // }
 
         glm::vec2 resolution = window->getSize();
         camera->updateAspectRatio(resolution.x / resolution.y);

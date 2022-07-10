@@ -10,10 +10,13 @@ add_executable(Dincka
     src/Application/Application.cpp
     src/Game/World.hpp
     src/Game/World.cpp
+    src/Game/Direction.hpp
     src/Game/GameObject/GameObject.hpp
     src/Game/GameObject/GameObject.cpp
     src/Game/Core/Camera.hpp
     src/Game/Core/Camera.cpp
+    src/Game/Core/CollisionDetector.hpp
+    src/Game/Core/CollisionDetector.cpp
     src/Game/Core/Sprite.hpp
     src/Game/Core/Sprite.cpp
     src/Game/Scripts/Player.hpp

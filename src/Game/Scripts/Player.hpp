@@ -7,8 +7,11 @@
 class Player: public GameObject {
 public:
     Player(Shader* shader);
-    ~Player();
     void update(double deltaTime) override;
 private:
-    Sprite* sprite;
+    float   verticalForce;
+    bool    isGrounded;
+    float   gravity = 9.f;
+    float   jumpForce = 4.f;
+    float   moveSpeed = 1.f;
 };

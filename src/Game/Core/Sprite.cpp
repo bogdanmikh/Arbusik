@@ -66,6 +66,12 @@ void Sprite::setPosition(float x, float y, float z) {
     position.z = z;
 }
 
+void Sprite::translate(float x, float y, float z) {
+    position.x += x;
+    position.y += y;
+    position.z += z;
+}
+
 void Sprite::setSize(float width, float height) {
     size.x = width;
     size.y = height;
@@ -78,3 +84,18 @@ void Sprite::updateModelMatrix() {
     shader->setMat4("model", model);
 }
 
+float Sprite::getMaxY() {
+    return position.y + size.y;
+}
+
+float Sprite::getMinY() {
+    return position.y;
+}
+
+float Sprite::getMaxX() {
+    return position.x + size.x;
+}
+
+float Sprite::getMinX() {
+    return position.x;
+}

@@ -7,8 +7,5 @@
 class Ground: public GameObject {
 public:
     Ground(Shader* shader);
-    ~Ground();
     void update(double deltaTime) override;
-private:
-    Sprite* sprite;
 };

@@ -10,6 +10,7 @@ public:
     void addActor(GameObject* actor);
     void deleteActor(GameObject* actor);
     std::vector<GameObject*>& getAllActors();
+    std::vector<GameObject*> getAllCollisions();
 private:
     std::vector<GameObject*> gameObjects;
 };
