@@ -7,17 +7,36 @@
 Sprite::Sprite(std::string texturePath, Shader* shader)
     : texture(texturePath)
     , position(0.f)
-    , shader(shader) {
-    updateModelMatrix();
+    , shader(shader)
+    , size(1.f, 1.f) {
+    //
+    //      2________1
+    //      |        |
+    //      |        |
+    //      |________|
+    //      3        4
+    //
+
+    // float *data = new float[24] {
+    // //    x   y          u    v
+    //      1.f, 1.f,      1.f, 0.f,   // 1
+    //     -1.f, 1.f,      0.f, 0.f,   // 2
+    //     -1.f, -1.f,     0.f, 1.f,   // 3
+    //     1.f, 1.f,       1.f, 0.f,   // 1
+    //     -1.f, -1.f,     0.f, 1.f,   // 3
+    //     1.f, -1.f,      1.f, 1.f,   // 4
+    // };
 
     float *data = new float[24] {
-         1.f, 1.f, 1.f, 0.f,
-        -1.f, 1.f, 0.f, 0.f,
-        -1.f, -1.f, 0.f, 1.f,
-         1.f, -1.f, 1.f, 1.f,
-        -1.f, -1.f, 0.f, 1.f,
-         1.f, 1.f, 1.f, 0.f
+    //    x   y          u    v
+        1.f, 0.f,       1.f, 0.f,   // 1
+        0.f, 0.f,       0.f, 0.f,   // 2
+        0.f, -1.f,      0.f, 1.f,   // 3
+        1.f, 0.f,       1.f, 0.f,   // 1
+        0.f, -1.f,      0.f, 1.f,   // 3
+        1.f, -1.f,      1.f, 1.f,   // 4
     };
+
     vertexBuffer = new VertexBuffer(data, sizeof(float) * 24);
     delete[] data;
 
@@ -34,7 +53,7 @@ Sprite::~Sprite() {
     delete vertexBuffer;
 }
 
-void Sprite::draw(){
+void Sprite::draw() {
     texture.bind();
     vertexArray->bind();
     updateModelMatrix();
@@ -42,18 +61,20 @@ void Sprite::draw(){
 }
 
 void Sprite::setPosition(float x, float y, float z) {
-    if (position.x == x && position.y == y && position.z == z) {
-        return;
-    }
     position.x = x;
     position.y = y;
     position.z = z;
-    updateModelMatrix();
+}
+
+void Sprite::setSize(float width, float height) {
+    size.x = width;
+    size.y = height;
 }
 
 void Sprite::updateModelMatrix() {
     shader->use();
     glm::mat4 model = glm::translate(glm::mat4(1.f), position);
+    model = glm::scale(model, glm::vec3(size, 1.f));
     shader->setMat4("model", model);
 }
 

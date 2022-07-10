@@ -6,10 +6,20 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(Dincka 
     src/main.cpp 
-    src/Game/Camera.hpp
-    src/Game/Camera.cpp
-    src/Game/Sprite.hpp
-    src/Game/Sprite.cpp
+    src/Application/Application.hpp
+    src/Application/Application.cpp
+    src/Game/World.hpp
+    src/Game/World.cpp
+    src/Game/GameObject/GameObject.hpp
+    src/Game/GameObject/GameObject.cpp
+    src/Game/Core/Camera.hpp
+    src/Game/Core/Camera.cpp
+    src/Game/Core/Sprite.hpp
+    src/Game/Core/Sprite.cpp
+    src/Game/Scripts/Player.hpp
+    src/Game/Scripts/Player.cpp
+    src/Game/Scripts/Ground.hpp
+    src/Game/Scripts/Ground.cpp
     src/Renderer/Renderer.cpp
     src/Renderer/Renderer.hpp
     src/Renderer/IndexBuffer.cpp

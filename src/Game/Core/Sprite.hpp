@@ -13,6 +13,7 @@ public:
     Sprite(std::string texturePath, Shader* shader);
     ~Sprite();
     void setPosition(float x, float y, float z);
+    void setSize(float width, float height);
     void draw();
 private:
     void updateModelMatrix();
@@ -22,4 +23,5 @@ private:
     VertexArray* vertexArray;
     Shader* shader;
     glm::vec3 position;
+    glm::vec2 size;
 };

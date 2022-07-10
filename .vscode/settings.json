@@ -49,6 +49,7 @@
         "*.rh": "cpp",
         "vector": "cpp",
         "xhash": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "chrono": "cpp"
     }
 }
