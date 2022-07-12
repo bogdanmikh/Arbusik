@@ -11,7 +11,7 @@ public:
 private:
     float   verticalForce;
     bool    isGrounded;
-    float   gravity = 9.f;
-    float   jumpForce = 4.f;
-    float   moveSpeed = 1.f;
+    float   gravity = - 9.8f;
+    float   jumpForce = 6.f;
+    float   moveSpeed = 3.f;
 };

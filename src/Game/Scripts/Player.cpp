@@ -3,19 +3,21 @@
 #include "Game/Core/CollisionDetector.hpp"
 
 Player::Player(Shader* shader)
-    : GameObject("../../resources/textures/Human.png", shader) {
-    setPosition(0.f, 1.f, 0.f);
+    : GameObject("../resources/textures/Human.png", shader) {
+    setPosition(0.f, 0.5f, 0.f);
+    setSize(0.3, 1.2);
 }
 
 void Player::update(double deltaTime) {
     isGrounded = false;
 
-    verticalForce -= gravity * deltaTime;
+    verticalForce += gravity * deltaTime;
     float horizontalSpeed = deltaTime * moveSpeed;
-    float verticalSpeed = - deltaTime * verticalForce;
+    float verticalSpeed = deltaTime * verticalForce;
+    std::cout << verticalForce << std::endl;
 
-    if(std::abs(verticalForce) > 10.f) {
-        if(verticalForce > 0.f) {
+    if(std::abs(verticalForce) > 0.1f) {
+        if(verticalForce >= 0.f) {
             if(CollisionDetector::moveAcceptable(this, Direction::UP, verticalSpeed)) {
                 translate(0.f, verticalSpeed, 0.f);
             } else {
@@ -36,11 +38,11 @@ void Player::update(double deltaTime) {
     }
 
     if(Application::getInstance()->window->isKeyPressed(Key::A)
-        && CollisionDetector::moveAcceptable(this, Direction::RIGHT, horizontalSpeed )) {
+        && CollisionDetector::moveAcceptable(this, Direction::LEFT, -horizontalSpeed)) {
         translate(-horizontalSpeed , 0.f, 0.f);
     }
     if(Application::getInstance()->window->isKeyPressed(Key::D)
-        && CollisionDetector::moveAcceptable(this, Direction::LEFT, horizontalSpeed )) {
+        && CollisionDetector::moveAcceptable(this, Direction::RIGHT, horizontalSpeed)) {
         translate(horizontalSpeed, 0.f, 0.f);
     }
 

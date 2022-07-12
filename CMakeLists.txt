@@ -4,6 +4,8 @@ project("Dincka")
 
 set(CMAKE_CXX_STANDARD 14)
 
+set(BIN_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+
 add_executable(Dincka 
     src/main.cpp 
     src/Application/Application.hpp
@@ -67,3 +69,8 @@ add_subdirectory(vendor/stb_image)
 
 target_link_libraries(Dincka stb_image)
 target_include_directories(Dincka PRIVATE vendor/stb_image)
+
+set_target_properties(Dincka
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${BIN_DIRECTORY}
+)

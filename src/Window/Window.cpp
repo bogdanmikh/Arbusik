@@ -11,6 +11,13 @@ Window::Window(const char* name, double resolution_x, double resolution_y)
         return;
     }
 
+    #if defined(__APPLE__) || defined(__MACH__)
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+    #endif
+
     GLFWwindow* window = glfwCreateWindow(resolution_x, resolution_y, name, NULL, NULL);
     if (!window) {
         std::cout << "GLFW window creation failed\n";
@@ -40,8 +47,10 @@ glm::vec2 Window::getCursorPos() {
 
 glm::vec2 Window::getSize() {
     int x, y;
+    float xscale, yscale;
+    glfwGetWindowContentScale((GLFWwindow*) handle, &xscale, &yscale);
     glfwGetWindowSize((GLFWwindow*) handle,  &x, &y);
-    return { x, y };
+    return { x * xscale, y * yscale };
 }
 
 double Window::getTime() {

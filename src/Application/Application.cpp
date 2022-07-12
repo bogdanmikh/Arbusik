@@ -26,15 +26,25 @@ Application::Application() {
     window = new Window("OpenGl", 640, 480);
     Renderer::init();
 
-    shader = new Shader("../../resources/shaders/vst.glsl","../../resources/shaders/fst.glsl");
+    shader = new Shader("../resources/shaders/vst.glsl", "../resources/shaders/fst.glsl");
 
     world.addActor(new Player(shader));
-    auto ground = new Ground(shader);
-    ground->setPosition(-5.f, 0.f, 0.f);
-    ground->setSize(10.f, 6.f);
-    world.addActor(ground);
+    auto ground1 = new Ground(shader);
+    ground1->setPosition(-5.f, -7.5f, 0.f);
+    ground1->setSize(10.f, 6.f);
+    world.addActor(ground1);
 
-    Renderer::setClearColor(1.0f, 0.5f, 0.7f, 1.0f);
+    auto ground2 = new Ground(shader);
+    ground2->setPosition(-4.f, 0.f, 0.f);
+    ground2->setSize(1.f, 1.f);
+    world.addActor(ground2);
+
+    auto ground3 = new Ground(shader);
+    ground3->setPosition(-2.f, -1.f, 0.f);
+    ground3->setSize(1.f, 1.f);
+    world.addActor(ground3);
+
+    Renderer::setClearColor(.235f, .235f, .235f, 1.0f);
 
     camera = new Camera;
     camera->setShader(shader);

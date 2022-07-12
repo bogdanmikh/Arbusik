@@ -17,25 +17,27 @@ Sprite::Sprite(std::string texturePath, Shader* shader)
     //      3        4
     //
 
-    // float *data = new float[24] {
-    // //    x   y          u    v
-    //      1.f, 1.f,      1.f, 0.f,   // 1
-    //     -1.f, 1.f,      0.f, 0.f,   // 2
-    //     -1.f, -1.f,     0.f, 1.f,   // 3
-    //     1.f, 1.f,       1.f, 0.f,   // 1
-    //     -1.f, -1.f,     0.f, 1.f,   // 3
-    //     1.f, -1.f,      1.f, 1.f,   // 4
-    // };
-
+    // Ось объекта в точке 3
     float *data = new float[24] {
     //    x   y          u    v
-        1.f, 0.f,       1.f, 0.f,   // 1
-        0.f, 0.f,       0.f, 0.f,   // 2
-        0.f, -1.f,      0.f, 1.f,   // 3
-        1.f, 0.f,       1.f, 0.f,   // 1
-        0.f, -1.f,      0.f, 1.f,   // 3
-        1.f, -1.f,      1.f, 1.f,   // 4
+        1.f, 1.f,       1.f, 0.f,   // 1
+        0.f, 1.f,       0.f, 0.f,   // 2
+        0.f, 0.f,       0.f, 1.f,   // 3
+        1.f, 1.f,       1.f, 0.f,   // 1
+        0.f, 0.f,       0.f, 1.f,   // 3
+        1.f, 0.f,       1.f, 1.f,   // 4
     };
+
+    // Ось объекта в точке 2
+    // float *data = new float[24] {
+    // //    x   y          u    v
+    //     1.f, 0.f,       1.f, 0.f,   // 1
+    //     0.f, 0.f,       0.f, 0.f,   // 2
+    //     0.f, -1.f,      0.f, 1.f,   // 3
+    //     1.f, 0.f,       1.f, 0.f,   // 1
+    //     0.f, -1.f,      0.f, 1.f,   // 3
+    //     1.f, -1.f,      1.f, 1.f,   // 4
+    // };
 
     vertexBuffer = new VertexBuffer(data, sizeof(float) * 24);
     delete[] data;
