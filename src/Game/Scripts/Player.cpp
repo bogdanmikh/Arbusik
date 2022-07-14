@@ -14,7 +14,6 @@ void Player::update(double deltaTime) {
     verticalForce += gravity * deltaTime;
     float horizontalSpeed = deltaTime * moveSpeed;
     float verticalSpeed = deltaTime * verticalForce;
-    std::cout << verticalForce << std::endl;
 
     if(std::abs(verticalForce) > 0.1f) {
         if(verticalForce >= 0.f) {

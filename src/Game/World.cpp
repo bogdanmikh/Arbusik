@@ -11,8 +11,11 @@ void World::addActor(GameObject* actor) {
 }
 
 void World::deleteActor(GameObject* actor) {
-    gameObjects.erase(find(gameObjects.begin(), gameObjects.end(), actor));
-    delete actor;
+    auto it = std::find(gameObjects.begin(), gameObjects.end(), actor);
+    if(it != gameObjects.end()) {
+        gameObjects.erase(it);
+        delete actor;
+    }
 }
 
 std::vector<GameObject*>& World::getAllActors() {

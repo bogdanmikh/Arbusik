@@ -70,7 +70,11 @@ add_subdirectory(vendor/stb_image)
 target_link_libraries(Dincka stb_image)
 target_include_directories(Dincka PRIVATE vendor/stb_image)
 
-set_target_properties(Dincka
-    PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${BIN_DIRECTORY}
-)
+# set output directories for all builds (Debug, Release, etc.)
+foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )
+    string( TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG )
+    set_target_properties(Dincka
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${BIN_DIRECTORY}
+    )
+endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
