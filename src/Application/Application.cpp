@@ -28,7 +28,14 @@ Application::Application() {
 
     shader = new Shader("../resources/shaders/vst.glsl", "../resources/shaders/fst.glsl");
 
-    world.addActor(new Player(shader));
+    camera = new Camera;
+    camera->setShader(shader);
+    camera->setFieldOfView(glm::radians(60.f));
+    camera->setRotation(0.f, 0.f, 0.f);
+
+    auto player = new Player(shader, camera);
+    player->setSize(0.5f,0.5f);
+    world.addActor(player);
     auto ground1 = new Ground(shader);
     ground1->setPosition(-5.f, -7.5f, 0.f);
     ground1->setSize(10.f, 6.f);
@@ -44,13 +51,12 @@ Application::Application() {
     ground3->setSize(1.f, 1.f);
     world.addActor(ground3);
 
-    Renderer::setClearColor(.235f, .235f, .235f, 1.0f);
+    auto ground4 = new Ground(shader);
+    ground4->setPosition(1.f, 0.5f, 0.f);
+    ground4->setSize(1.f, 0.1f);
+    world.addActor(ground4);
 
-    camera = new Camera;
-    camera->setShader(shader);
-    camera->setFieldOfView(glm::radians(60.f));
-    camera->setRotation(0.f, 0.f, 0.f);
-    camera->setPosition(0.f, 0.f, 5.f);
+    Renderer::setClearColor(.235f, .235f, .235f, 1.0f);
 
     timeMillis = getMillis();
 }

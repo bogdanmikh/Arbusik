@@ -1,16 +1,18 @@
 #include "Player.hpp"
 #include "Application/Application.hpp"
 #include "Game/Core/CollisionDetector.hpp"
+#include "Game/Core/Camera.hpp"
 
-Player::Player(Shader* shader)
-    : GameObject("../resources/textures/Human.png", shader) {
+Player::Player(Shader* shader, Camera* camera)
+    : GameObject("../resources/textures/ball.png", shader)
+    , camera(camera) {
     setPosition(0.f, 0.5f, 0.f);
-    setSize(0.3, 1.2);
+    setSize(1., 1.);
 }
 
 void Player::update(double deltaTime) {
     isGrounded = false;
-
+    camera->setPosition(getMaxX(), getMaxY(), 5.f);
     verticalForce += gravity * deltaTime;
     float horizontalSpeed = deltaTime * moveSpeed;
     float verticalSpeed = deltaTime * verticalForce;
