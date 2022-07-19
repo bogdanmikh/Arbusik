@@ -33,9 +33,9 @@ void Enemy::update(double deltaTime) {
         }
     }
 
-    if((player->getMinX() - getMinX() < 0.01f || getMinX() - player->getMinX() < 0.01f) && getMinX() < player->getMinX() && isGrounded){
+    if( getMinX() < player->getMinX() && isGrounded && player->getMinX() - getMinX() < distance ){
         translate(horizontalSpeed * 0.5f, 0.f, 0.f);
-    } else if((player->getMinX() - getMinX() < 0.01f || getMinX() - player->getMinX() < 0.01f) && isGrounded && getMinX() > player->getMinX()){
+    } else if( isGrounded && getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance){
         translate(-horizontalSpeed * 0.5f, 0.f, 0.f);
     }
 

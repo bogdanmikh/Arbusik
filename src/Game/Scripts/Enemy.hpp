@@ -20,4 +20,5 @@ private:
     double    oneSecondDistanceCount_y = 0;
     double    deltaDistance_y = 0;
     Player* player;
+    float distance = 2.0f;
 };
