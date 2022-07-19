@@ -42,8 +42,10 @@ void Enemy::update(double deltaTime) {
         }
     }
 
-    if( player->getMinY() > getMinY() && isGrounded ){
+    if( player->getMinY() > getMinY() && isGrounded && (getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance  || getMinX() < player->getMinX() && player->getMinX() - getMinX() < distance)){
         verticalForce = jumpForce;
+        std::cout << "1: " << player->getMinX() - getMinX() << "2: " <<  getMinX() - player->getMinX() << "\n";
+
     }
     draw();
 }

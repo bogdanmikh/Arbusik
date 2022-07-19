@@ -14,7 +14,7 @@ private:
     bool    isGrounded;
     float   gravity = - 9.8f;
     float   jumpForce = 6.f;
-    float   moveSpeed = 1.f;
+    float   moveSpeed = 1.5f;
     Player* player;
-    float distance = 2.0f;
+    float distance = 3.0f;
 };
