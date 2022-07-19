@@ -25,6 +25,8 @@ add_executable(Dincka
     src/Game/Scripts/Player.cpp
     src/Game/Scripts/Ground.hpp
     src/Game/Scripts/Ground.cpp
+    src/Game/Scripts/Enemy.hpp
+    src/Game/Scripts/Enemy.cpp
     src/Renderer/Renderer.cpp
     src/Renderer/Renderer.hpp
     src/Renderer/IndexBuffer.cpp

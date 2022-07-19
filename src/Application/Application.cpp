@@ -3,6 +3,7 @@
 #include "Renderer/Renderer.hpp"
 #include "Game/Scripts/Player.hpp"
 #include "Game/Scripts/Ground.hpp"
+#include "Game/Scripts/Enemy.hpp"
 
 #include <chrono>
 #include <iostream>
@@ -36,6 +37,11 @@ Application::Application() {
     auto player = new Player(shader, camera);
     player->setSize(0.5f,0.5f);
     world.addActor(player);
+
+    auto enemy = new Enemy(shader, player);
+    enemy->setSize(0.5f,0.5f);
+    world.addActor(enemy);
+
     auto ground1 = new Ground(shader);
     ground1->setPosition(-5.f, -7.5f, 0.f);
     ground1->setSize(10.f, 6.f);
