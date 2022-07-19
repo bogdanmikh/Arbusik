@@ -14,7 +14,6 @@ void Enemy::update(double deltaTime) {
     verticalForce += gravity * deltaTime;
     float horizontalSpeed = deltaTime * moveSpeed;
     float verticalSpeed = deltaTime * verticalForce;
-    deltaDistance_x = player->getMinX();
 
      if(std::abs(verticalForce) > 0.1f) {
         if(verticalForce >= 0.f) {
@@ -33,16 +32,18 @@ void Enemy::update(double deltaTime) {
         }
     }
 
-    if( getMinX() < player->getMinX() && isGrounded && player->getMinX() - getMinX() < distance ){
-        translate(horizontalSpeed * 0.5f, 0.f, 0.f);
-    } else if( isGrounded && getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance){
-        translate(-horizontalSpeed * 0.5f, 0.f, 0.f);
+    if( getMinX() < player->getMinX() && player->getMinX() - getMinX() < distance ){
+        if(CollisionDetector::moveAcceptable(this, Direction::RIGHT, horizontalSpeed)) {
+            translate(horizontalSpeed, 0.f, 0.f);
+        }
+    } else if(getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance){
+        if(CollisionDetector::moveAcceptable(this, Direction::LEFT, -horizontalSpeed)) {
+            translate(-horizontalSpeed, 0.f, 0.f);
+        }
     }
 
-    if(deltaDistance_y - oneSecondDistanceCount_y > 0 && player->getMinY() < 2.f && isGrounded){
+    if( player->getMinY() > getMinY() && isGrounded ){
         verticalForce = jumpForce;
     }
-
-    oneSecondDistanceCount_x = deltaDistance_x;
     draw();
 }

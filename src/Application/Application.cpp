@@ -53,7 +53,7 @@ Application::Application() {
     world.addActor(ground2);
 
     auto ground3 = new Ground(shader);
-    ground3->setPosition(-2.f, -1.f, 0.f);
+    ground3->setPosition(-2.f, -1.3f, 0.f);
     ground3->setSize(1.f, 1.f);
     world.addActor(ground3);
 
