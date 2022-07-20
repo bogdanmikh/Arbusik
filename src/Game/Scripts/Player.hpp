@@ -7,6 +7,7 @@
 
 class Player: public GameObject {
 public:
+    int hp = 3;
     Player(Shader* shader, Camera* camera);
     void update(double deltaTime) override;
 private:

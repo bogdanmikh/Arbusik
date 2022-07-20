@@ -51,8 +51,11 @@ void Enemy::update(double deltaTime) {
     ) {
         verticalForce = jumpForce;
     }
-    if(distanceTo(player) < 0.1f) {
-        Application::getInstance()->close();
+    if(distanceTo(player) < 0.4f) {
+        player->hp--;
+        if(player->hp == 0){
+            Application::getInstance()->close();
+        }
     }
     draw();
 }

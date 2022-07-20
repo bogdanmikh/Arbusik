@@ -15,6 +15,7 @@ private:
     float   gravity = - 9.8f;
     float   jumpForce = 5.f;
     float   moveSpeed = 1.5f;
-    Player* player;
     float distance = 3.0f;
+    Player* player;
+    float deltatime;
 };

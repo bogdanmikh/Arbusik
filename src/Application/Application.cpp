@@ -48,7 +48,6 @@ Application::Application() {
     enemy_2->setPosition(-2.f, 0.f, 0.f);
     world.addActor(enemy_2);
 
-
     auto place1 = new Ground(shader);
     place1->setPosition(-5.f, -7.5f, 0.f);
     place1->setSize(10.f, 6.f);
@@ -59,6 +58,11 @@ Application::Application() {
     place2->setSize(10.f, 6.f);
     world.addActor(place2);
 
+    auto place3 = new Ground(shader);
+    place3->setPosition(-15.f, -7.5f, 0.f);
+    place3->setSize(10.f, 6.f);
+    world.addActor(place3);
+    
     auto ground2 = new Ground(shader);
     ground2->setPosition(-4.f, 0.f, 0.f);
     ground2->setSize(1.f, 1.f);
