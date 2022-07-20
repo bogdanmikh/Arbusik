@@ -40,6 +40,7 @@ Application::Application() {
 
     auto enemy = new Enemy(shader, player);
     enemy->setSize(0.5f,0.5f);
+    enemy->setPosition(-2.f, 0.f, 0.f);
     world.addActor(enemy);
 
     auto ground1 = new Ground(shader);

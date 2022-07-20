@@ -36,16 +36,18 @@ void Enemy::update(double deltaTime) {
         if(CollisionDetector::moveAcceptable(this, Direction::RIGHT, horizontalSpeed)) {
             translate(horizontalSpeed, 0.f, 0.f);
         }
-    } else if(getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance){
+    } else if(getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance ){
         if(CollisionDetector::moveAcceptable(this, Direction::LEFT, -horizontalSpeed)) {
             translate(-horizontalSpeed, 0.f, 0.f);
         }
     }
 
-    if( player->getMinY() > getMinY() && isGrounded && (getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance  || getMinX() < player->getMinX() && player->getMinX() - getMinX() < distance)){
+    if( player->getMinY() > getMinY() && isGrounded &&
+     (getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance  ||
+     getMinX() < player->getMinX() && player->getMinX() - getMinX() < distance) && player->getMinY() != getMinY() && player->getMinY() > getMinY()
+     && player->getMinY() - getMinY() < distance
+    ){
         verticalForce = jumpForce;
-        std::cout << "1: " << player->getMinX() - getMinX() << "2: " <<  getMinX() - player->getMinX() << "\n";
-
     }
     draw();
 }
