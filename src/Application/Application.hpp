@@ -2,10 +2,9 @@
 
 #include "Window/Window.hpp"
 #include "Game/World.hpp"
-#include "Game/Core/Camera.hpp"
-#include "Renderer/Shader.hpp"
 #include "Game/Scripts/Player.hpp"
 #include "Game/Scripts/Enemy.hpp"
+#include "Game/Level.hpp"
 
 class Application {
 public:
@@ -14,18 +13,19 @@ public:
     void loop();
 
     World world;
-    Window* window;
-    Shader* shader;
-    Camera* camera;    
+    Window* window;   
     int fps;
     static Application* getInstance();
     void close();
+    void loadLevel(Level* level);
 
 private:
-    static Application* s_instance;
-    int         maximumFps = 60;
-    uint64_t    oneSecondTimeCount = 0;
-    uint64_t    deltaTimeMillis = 0;
-    int         thisSecondFramesCount = 0;
-    uint64_t    timeMillis;
+    static Application *s_instance;
+    Camera* camera; 
+    Level* currentLevel;
+    int maximumFps = 60;
+    uint64_t oneSecondTimeCount = 0;
+    uint64_t deltaTimeMillis = 0;
+    int thisSecondFramesCount = 0;
+    uint64_t timeMillis;
 };

@@ -1,6 +1,7 @@
 #include "Game/Scripts/Enemy.hpp"
 #include "Application/Application.hpp"
 #include "Game/Core/CollisionDetector.hpp"
+#include "Game/Levels/FirstLevel.hpp"
 #include <math.h>
 
 Enemy::Enemy(Shader* shader, Player* player_clone) 
@@ -54,7 +55,7 @@ void Enemy::update(double deltaTime) {
     if(distanceTo(player) < 0.4f) {
         player->hp--;
         if(player->hp == 0){
-            Application::getInstance()->close();
+            Application::getInstance()->loadLevel(new FirstLevel());
         }
     }
     draw();

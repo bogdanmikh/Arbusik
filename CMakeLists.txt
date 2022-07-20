@@ -12,6 +12,7 @@ add_executable(Dincka
     src/Application/Application.cpp
     src/Game/World.hpp
     src/Game/World.cpp
+    src/Game/Level.hpp
     src/Game/Direction.hpp
     src/Game/GameObject/GameObject.hpp
     src/Game/GameObject/GameObject.cpp
@@ -21,6 +22,8 @@ add_executable(Dincka
     src/Game/Core/CollisionDetector.cpp
     src/Game/Core/Sprite.hpp
     src/Game/Core/Sprite.cpp
+    src/Game/Levels/FirstLevel.hpp
+    src/Game/Levels/FirstLevel.cpp
     src/Game/Scripts/Player.hpp
     src/Game/Scripts/Player.cpp
     src/Game/Scripts/Ground.hpp

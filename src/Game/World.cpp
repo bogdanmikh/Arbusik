@@ -18,6 +18,13 @@ void World::deleteActor(GameObject* actor) {
     }
 }
 
+void World::deleteAll() {
+    for(auto& actor: gameObjects) {
+        delete actor;
+    }
+    gameObjects.clear();
+}
+
 std::vector<GameObject*>& World::getAllActors() {
     return gameObjects;
 }

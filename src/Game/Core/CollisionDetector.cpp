@@ -6,16 +6,6 @@ bool CollisionDetector::moveAcceptable(
     Direction direction, 
     float amount
 ) {
-    // if (direction == Direction::UP && entity->getMinY() < worldBounds.getMinY()) {
-    //     return false;
-    // } else if (direction == Direction::LEFT && entity->getMinX() < worldBounds.getMinX()) {
-    //     return false;
-    // } else if (direction == Direction::DOWN && entity->getMaxY() > worldBounds.getMaxY()) {
-    //     return false;
-    // } else if (direction == Direction::RIGHT && entity->getMaxX() > worldBounds.getMaxX()) {
-    //     return false;
-    // }
-
     auto collisionList = Application::getInstance()->world.getAllCollisions();
     for (auto& collision: collisionList) {
         if (collision == entity) { continue; }

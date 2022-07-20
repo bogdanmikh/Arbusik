@@ -9,6 +9,7 @@ public:
     void update(double deltaTime);
     void addActor(GameObject* actor);
     void deleteActor(GameObject* actor);
+    void deleteAll();
     std::vector<GameObject*>& getAllActors();
     std::vector<GameObject*> getAllCollisions();
 private:
