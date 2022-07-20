@@ -1,6 +1,7 @@
 #include "Game/Scripts/Enemy.hpp"
 #include "Application/Application.hpp"
 #include "Game/Core/CollisionDetector.hpp"
+#include <math.h>
 
 Enemy::Enemy(Shader* shader, Player* player_clone) 
     : GameObject("../resources/textures/Enemy.png", shader){
@@ -32,22 +33,26 @@ void Enemy::update(double deltaTime) {
         }
     }
 
-    if( getMinX() < player->getMinX() && player->getMinX() - getMinX() < distance ){
+    if( getMinX() < player->getMinX() && player->getMinX() - getMinX() < distance) {
         if(CollisionDetector::moveAcceptable(this, Direction::RIGHT, horizontalSpeed)) {
             translate(horizontalSpeed, 0.f, 0.f);
         }
-    } else if(getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance ){
+    } else if(getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance) {
         if(CollisionDetector::moveAcceptable(this, Direction::LEFT, -horizontalSpeed)) {
             translate(-horizontalSpeed, 0.f, 0.f);
         }
     }
 
     if( player->getMinY() > getMinY() && isGrounded &&
-     (getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance  ||
-     getMinX() < player->getMinX() && player->getMinX() - getMinX() < distance) && player->getMinY() != getMinY() && player->getMinY() > getMinY()
-     && player->getMinY() - getMinY() < distance
-    ){
+        (getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance ||
+        getMinX() < player->getMinX() && player->getMinX() - getMinX() < distance) 
+        && player->getMinY() != getMinY() && player->getMinY() > getMinY()
+        && player->getMinY() - getMinY() < distance
+    ) {
         verticalForce = jumpForce;
+    }
+    if(distanceTo(player) < 0.1f) {
+        Application::getInstance()->close();
     }
     draw();
 }

@@ -16,5 +16,5 @@ private:
     float   jumpForce = 5.f;
     float   moveSpeed = 1.5f;
     Player* player;
-    float distance = 2.0f;
+    float distance = 3.0f;
 };

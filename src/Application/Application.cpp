@@ -38,15 +38,26 @@ Application::Application() {
     player->setSize(0.5f,0.5f);
     world.addActor(player);
 
-    auto enemy = new Enemy(shader, player);
-    enemy->setSize(0.5f,0.5f);
-    enemy->setPosition(-2.f, 0.f, 0.f);
-    world.addActor(enemy);
+    auto enemy_1 = new Enemy(shader, player);
+    enemy_1->setSize(0.5f,0.5f);
+    enemy_1->setPosition(-3.f, 0.f, 0.f);
+    world.addActor(enemy_1);
 
-    auto ground1 = new Ground(shader);
-    ground1->setPosition(-5.f, -7.5f, 0.f);
-    ground1->setSize(10.f, 6.f);
-    world.addActor(ground1);
+    auto enemy_2 = new Enemy(shader, player);
+    enemy_2->setSize(0.5f,0.5f);
+    enemy_2->setPosition(-2.f, 0.f, 0.f);
+    world.addActor(enemy_2);
+
+
+    auto place1 = new Ground(shader);
+    place1->setPosition(-5.f, -7.5f, 0.f);
+    place1->setSize(10.f, 6.f);
+    world.addActor(place1);
+    
+    auto place2 = new Ground(shader);
+    place2->setPosition(1.f, -7.5f, 0.f);
+    place2->setSize(10.f, 6.f);
+    world.addActor(place2);
 
     auto ground2 = new Ground(shader);
     ground2->setPosition(-4.f, 0.f, 0.f);
@@ -62,6 +73,12 @@ Application::Application() {
     ground4->setPosition(1.f, 0.5f, 0.f);
     ground4->setSize(1.f, 0.1f);
     world.addActor(ground4);
+
+
+    auto ground6 = new Ground(shader);
+    ground6->setPosition(1.5f, 1.0f, 0.f);
+    ground6->setSize(1.f, 1.f);
+    world.addActor(ground6);
 
     Renderer::setClearColor(.235f, .235f, .235f, 1.0f);
 
@@ -103,7 +120,7 @@ void Application::loop() {
         world.update(deltaTime);
 
         if(window->isKeyPressed(Key::ESCAPE)) {
-            window->setShouldClose();
+            close();
         }
 
         glm::vec2 resolution = window->getSize();
@@ -113,4 +130,8 @@ void Application::loop() {
         window->swapBuffers();
         window->pollEvents();
     }
+}
+
+void Application::close(){
+    window->setShouldClose();
 }

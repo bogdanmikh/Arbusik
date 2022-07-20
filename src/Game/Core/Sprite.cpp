@@ -101,3 +101,7 @@ float Sprite::getMaxX() {
 float Sprite::getMinX() {
     return position.x;
 }
+
+double Sprite::distanceTo(Sprite* other) {
+    return sqrt((getMinX() - other->getMinX()) * (getMinX() - other->getMinX()) + (getMinY() - other->getMinY()) * (getMinY() - other->getMinY()));
+}

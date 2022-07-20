@@ -21,6 +21,8 @@ public:
     float getMaxX();
     float getMinX();
 
+    double distanceTo(Sprite* other);
+
     void draw();
 private:
     void updateModelMatrix();
