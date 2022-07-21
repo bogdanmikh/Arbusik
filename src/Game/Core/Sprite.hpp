@@ -30,7 +30,8 @@ private:
     Texture texture;
     VertexBuffer* vertexBuffer;
     VertexArray* vertexArray;
-    Shader* shader;
     glm::vec3 position;
     glm::vec2 size;
+protected:
+    Shader* shader;
 };

@@ -24,8 +24,8 @@ private:
     Camera* camera; 
     Level* currentLevel;
     int maximumFps = 60;
-    uint64_t oneSecondTimeCount = 0;
     uint64_t deltaTimeMillis = 0;
     int thisSecondFramesCount = 0;
-    uint64_t timeMillis;
+    uint64_t timeMillis; 
+    uint64_t oneSecondTimeCount = 0;
 };

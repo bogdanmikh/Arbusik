@@ -1,23 +1,21 @@
 #include "Game/Scripts/Enemy.hpp"
 #include "Application/Application.hpp"
 #include "Game/Core/CollisionDetector.hpp"
-#include "Game/Levels/FirstLevel.hpp"
-#include <math.h>
 
-Enemy::Enemy(Shader* shader, Player* player_clone) 
+Enemy::Enemy(Shader* shader, Player* player) 
     : GameObject("../resources/textures/Enemy.png", shader){
     setPosition(0.f, 0.5f, 0.f);
     setSize(1., 1.);
-    player = player_clone;
+    this->player = player;
 }
 
 void Enemy::update(double deltaTime) {
-    isGrounded = false;
     verticalForce += gravity * deltaTime;
     float horizontalSpeed = deltaTime * moveSpeed;
     float verticalSpeed = deltaTime * verticalForce;
 
-     if(std::abs(verticalForce) > 0.1f) {
+    isGrounded = false;
+    if(std::abs(verticalForce) > 0.1f) {
         if(verticalForce >= 0.f) {
             if(CollisionDetector::moveAcceptable(this, Direction::UP, verticalSpeed)) {
                 translate(0.f, verticalSpeed, 0.f);
@@ -46,17 +44,14 @@ void Enemy::update(double deltaTime) {
 
     if( player->getMinY() > getMinY() && isGrounded &&
         (getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance ||
-        getMinX() < player->getMinX() && player->getMinX() - getMinX() < distance) 
-        && player->getMinY() != getMinY() && player->getMinY() > getMinY()
+         getMinX() < player->getMinX() && player->getMinX() - getMinX() < distance) 
         && player->getMinY() - getMinY() < distance
     ) {
         verticalForce = jumpForce;
     }
+
     if(distanceTo(player) < 0.4f) {
-        player->hp--;
-        if(player->hp == 0){
-            Application::getInstance()->loadLevel(new FirstLevel());
-        }
+        player->showGameOver();
     }
     draw();
 }

@@ -2,10 +2,12 @@
 #include "Application/Application.hpp"
 #include "Game/Core/CollisionDetector.hpp"
 #include "Game/Core/Camera.hpp"
+#include "Game/Scripts/GameOverLabel.hpp"
 
 Player::Player(Shader* shader, Camera* camera)
     : GameObject("../resources/textures/ball.png", shader)
-    , camera(camera) {
+    , camera(camera)
+    , isPlaying(true) {
     setPosition(0.f, 0.5f, 0.f);
     setSize(1., 1.);
 }
@@ -48,4 +50,10 @@ void Player::update(double deltaTime) {
     }
 
     draw();
+}
+
+void Player::showGameOver() {
+    if(isPlaying == false) { return; } 
+    Application::getInstance()->world.addActor(new GameOverLabel(shader, this));
+    isPlaying = false;
 }

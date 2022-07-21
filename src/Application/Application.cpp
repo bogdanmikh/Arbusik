@@ -93,3 +93,5 @@ void Application::loadLevel(Level* level) {
 void Application::close(){
     window->setShouldClose();
 }
+    
+

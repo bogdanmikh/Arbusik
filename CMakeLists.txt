@@ -30,8 +30,14 @@ add_executable(Dincka
     src/Game/Scripts/Ground.cpp
     src/Game/Scripts/Enemy.hpp
     src/Game/Scripts/Enemy.cpp
-    src/Renderer/Renderer.cpp
+    src/Game/Scripts/Money.hpp
+    src/Game/Scripts/Money.cpp
+    src/Game/Scripts/Door.hpp
+    src/Game/Scripts/Door.cpp
+    src/Game/Scripts/GameOverLabel.hpp
+    src/Game/Scripts/GameOverLabel.cpp
     src/Renderer/Renderer.hpp
+    src/Renderer/Renderer.cpp
     src/Renderer/IndexBuffer.cpp
     src/Renderer/IndexBuffer.hpp
     src/Renderer/Mesh.cpp

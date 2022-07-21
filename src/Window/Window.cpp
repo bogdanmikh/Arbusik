@@ -11,6 +11,7 @@ Window::Window(const char* name, double resolution_x, double resolution_y)
         return;
     }
 
+    glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
     #if defined(__APPLE__) || defined(__MACH__)
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);

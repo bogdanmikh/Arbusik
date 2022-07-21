@@ -1,13 +1,13 @@
 #include "World.hpp"
 
 void World::update(double deltaTime) {
-    for(auto& gameObject: gameObjects) {
-        gameObject->update(deltaTime);
+    for(int i = 0; i < gameObjects.size(); i++) {
+        gameObjects[i]->update(deltaTime);
     }
 }
 
 void World::addActor(GameObject* actor) {
-    gameObjects.push_back(actor);
+    gameObjects.insert(gameObjects.begin(), actor);
 }
 
 void World::deleteActor(GameObject* actor) {
