@@ -7,6 +7,8 @@
 
 class Door: public GameObject {
 public:
-    Door(Shader* shader);
+    Door(Shader* shader, Player* player);
     void update(double deltaTime) override;
+private:
+    Player* player;
 };
