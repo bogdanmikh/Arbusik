@@ -18,7 +18,7 @@ void Player::update(double deltaTime) {
     verticalForce += gravity * deltaTime;
     float horizontalSpeed = deltaTime * moveSpeed;
     float verticalSpeed = deltaTime * verticalForce;
-
+ 
     if(std::abs(verticalForce) > 0.1f) {
         if(verticalForce >= 0.f) {
             if(CollisionDetector::moveAcceptable(this, Direction::UP, verticalSpeed)) {

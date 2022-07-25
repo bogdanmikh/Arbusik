@@ -13,7 +13,7 @@ void Money::update(double deltaTime) {
         player->money++;
         Application::getInstance()->world.deleteActor(this);
         return;
-    } else if(distanceTo(player) < 1.5f) {
+    } else if(distanceTo(player) < 2.f) {
         float moveSpeed = 1.0 * deltaTime;
         translate(
             player->getMinX() < getMinX() ? -moveSpeed : moveSpeed,
