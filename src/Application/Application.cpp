@@ -2,6 +2,7 @@
 
 #include "Renderer/Renderer.hpp"
 #include "Game/Levels/FirstLevel.hpp"
+#include "Game/Level.hpp"
 
 #include <chrono>
 #include <iostream>
@@ -32,8 +33,7 @@ Application::Application()
     camera = new Camera;
     camera->setFieldOfView(glm::radians(60.f));
     camera->setRotation(0.f, 0.f, 0.f);
-
-    loadLevel(new FirstLevel());
+    loadLevel(Level::&levels.at(0));
 }
 
 Application::~Application() {

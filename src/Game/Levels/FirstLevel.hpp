@@ -5,7 +5,7 @@
 #include "Game/Core/Camera.hpp"
 #include "Renderer/Shader.hpp"
 
-class FirstLevel: public Level {
+class FirstLevel : public Level {
 public:
     ~FirstLevel();
     void start(World* world, Camera* camera) override;

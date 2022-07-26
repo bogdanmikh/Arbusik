@@ -11,6 +11,8 @@ FirstLevel::~FirstLevel() {
 }
 
 void FirstLevel::start(World* world, Camera* camera) {
+    Level::levels.push_back(*this);
+
     shader = new Shader("../resources/shaders/vst.glsl", "../resources/shaders/fst.glsl");
     camera->setShader(shader);
 
