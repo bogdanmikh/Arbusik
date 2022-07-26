@@ -50,51 +50,39 @@ public:
         : m_Stride(0) {}
     ~VertexBufferLayout(){};
 
-    template<typename T>
-    void push(unsigned int count) {
-        assert(false);
-    }
-
-    template<>
-    void push<float>(unsigned int count) {
+    void pushFloat(unsigned int count) {
         VertexBufferElement element = {GL_FLOAT, count, GL_FALSE};
         m_Elements.push_back(element);
         m_Stride += count * VertexBufferElement::getSizeOfType(GL_FLOAT);
     }
 
-    template<>
-    void push<unsigned int>(unsigned int count) {
+    void pushUInt(unsigned int count) {
         VertexBufferElement element = {GL_UNSIGNED_INT, count, GL_FALSE};
         m_Elements.push_back(element);
         m_Stride += count * VertexBufferElement::getSizeOfType(GL_UNSIGNED_INT);
     }
 
-    template<>
-    void push<char>(unsigned int count) {
+    void pushChar(unsigned int count) {
         VertexBufferElement element = {GL_UNSIGNED_BYTE, count, GL_TRUE};
         m_Elements.push_back(element);
         m_Stride += count * VertexBufferElement::getSizeOfType(GL_UNSIGNED_BYTE);
     }
 
-    template<>
-    void push<glm::vec3>(unsigned int count) {
+    void pushVec3F(unsigned int count) {
         VertexBufferElement element = {GL_FLOAT, count * 3, GL_FALSE};
         m_Elements.push_back(element);
         m_Stride += count * VertexBufferElement::getSizeOfType(GL_FLOAT) * 3;
     }
 
-    template<>
-    void push<glm::vec2>(unsigned int count) {
+    void pushVec2F(unsigned int count) {
         VertexBufferElement element = {GL_FLOAT, count * 2, GL_FALSE};
         m_Elements.push_back(element);
         m_Stride += count * VertexBufferElement::getSizeOfType(GL_FLOAT) * 2;
     }
 
-    void pushVector() {
-        // positions
-        push<glm::vec3>(1);
-        // texture coordinates
-        push<glm::vec2>(1);
+    void pushVertex(unsigned int count) {
+        pushVec3F(1);
+        pushVec2F(1);
     }
 
     inline const std::vector<VertexBufferElement> getElements() const {

@@ -1,6 +1,6 @@
-#include "Game/Scripts/GameOverLabel.hpp"
 #include "Application/Application.hpp"
-#include "Game/Levels/FirstLevel.hpp"
+#include "Game/LevelManager/LevelManager.hpp"
+#include "Game/Scripts/GameOverLabel.hpp"
 
 GameOverLabel::GameOverLabel(Shader* shader, Player* player) 
     : GameObject("../resources/textures/GameOverLabel.png", shader)
@@ -12,7 +12,7 @@ GameOverLabel::GameOverLabel(Shader* shader, Player* player)
 void GameOverLabel::update(double deltaTime) {
     labelTime += deltaTime;
     if(labelTime >= 1) {
-        Application::getInstance()->loadLevel(new FirstLevel());
+        Application::getInstance()->loadLevel(createCurrentLevel());
         return;
     }
     draw();

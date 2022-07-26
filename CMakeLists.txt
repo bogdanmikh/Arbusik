@@ -22,8 +22,14 @@ add_executable(Dincka
     src/Game/Core/CollisionDetector.cpp
     src/Game/Core/Sprite.hpp
     src/Game/Core/Sprite.cpp
+    src/Game/LevelManager/LevelManager.hpp
+    src/Game/LevelManager/LevelManager.cpp
     src/Game/Levels/FirstLevel.hpp
     src/Game/Levels/FirstLevel.cpp
+    src/Game/Levels/SecondLevel.hpp
+    src/Game/Levels/SecondLevel.cpp
+    # src/Game/Levels/ThirdLevel.hpp
+    # src/Game/Levels/ThirdLevel.cpp
     src/Game/Scripts/Player.hpp
     src/Game/Scripts/Player.cpp
     src/Game/Scripts/Ground.hpp

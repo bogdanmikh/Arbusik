@@ -15,7 +15,7 @@ Mesh::Mesh(Vertex *vertices, unsigned int verticesCount, unsigned int *indices, 
     , vb(vertices, sizeof(Vertex) * verticesCount)
     , textures(textures) {
     VertexBufferLayout layout;
-    layout.pushVector();
+    layout.pushVertex(1);
     va.addBuffer(vb, layout);
 }
 

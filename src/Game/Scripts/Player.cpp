@@ -3,6 +3,7 @@
 #include "Game/Core/CollisionDetector.hpp"
 #include "Game/Core/Camera.hpp"
 #include "Game/Scripts/GameOverLabel.hpp"
+#include "Game/LevelManager/LevelManager.hpp"
 
 Player::Player(Shader* shader, Camera* camera)
     : GameObject("../resources/textures/ball.png", shader)
@@ -34,6 +35,12 @@ void Player::update(double deltaTime) {
                 isGrounded = true;
             }
         }
+    }
+
+    // Если игрок упал слишком низко (за карту) - перезагрузка уровня
+    if (getMinY() < -10.f) {
+        Application::getInstance()->loadLevel(createCurrentLevel());
+        return;
     }
 
     if(Application::getInstance()->window->isKeyPressed(Key::SPACE) && isGrounded) {

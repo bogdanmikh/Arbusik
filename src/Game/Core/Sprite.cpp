@@ -43,8 +43,8 @@ Sprite::Sprite(std::string texturePath, Shader* shader)
     delete[] data;
 
     VertexBufferLayout layout;
-    layout.push<glm::vec2>(1);
-    layout.push<glm::vec2>(1);
+    layout.pushVec2F(1);
+    layout.pushVec2F(1);
 
     vertexArray = new VertexArray();
     vertexArray->addBuffer(*vertexBuffer, layout);
