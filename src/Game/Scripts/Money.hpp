@@ -1,7 +1,9 @@
 #pragma once
+
+#include "Game/Core/Sprite.hpp"
 #include "Player.hpp"
 
-class Money: public GameObject {
+class Money: public GameObject, public Sprite {
 public:
     int money = 0;
     int max_money;

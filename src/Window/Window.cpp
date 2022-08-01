@@ -79,6 +79,10 @@ void Window::toggleCursorLock() {
     glfwSetInputMode((GLFWwindow*) handle, GLFW_CURSOR, cursorLocked ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
 }
 
+void* Window::getNativeHandle() {
+    return handle;
+}
+
 bool Window::isCursorLocked() {
     return cursorLocked;
 }

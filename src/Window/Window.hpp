@@ -17,6 +17,7 @@ public:
     void setShouldClose();
     void swapBuffers();
     void pollEvents();
+    void* getNativeHandle();
 private:
     void* handle;
     bool cursorLocked;

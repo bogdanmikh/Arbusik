@@ -5,7 +5,7 @@
 #include "Game/Core/Sprite.hpp"
 #include "Game/Scripts/Player.hpp"
 
-class Door: public GameObject {
+class Door: public GameObject, public Sprite {
 public:
     Door(Shader* shader, Player* player);
     void update(double deltaTime) override;

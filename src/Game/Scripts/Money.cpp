@@ -2,7 +2,7 @@
 #include "Application/Application.hpp"
 
 Money::Money(Shader* shader, Player* player) 
-    : GameObject("../resources/textures/Money.png", shader)
+    : Sprite("../resources/textures/Money.png", shader)
     , player(player) {
     player->maxMoney++;
 }

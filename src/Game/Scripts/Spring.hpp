@@ -4,7 +4,7 @@
 #include "Game/Core/Sprite.hpp"
 #include "Game/Scripts/Player.hpp"
 
-class Spring : public GameObject{
+class Spring : public GameObject, public Sprite {
 public:
     Spring(Shader* shader, Player* player, std::string path);
     void update(double deltaTime) override;

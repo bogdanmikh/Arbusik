@@ -29,12 +29,13 @@ std::vector<GameObject*>& World::getAllActors() {
     return gameObjects;
 }
 
-std::vector<GameObject*> World::getAllCollisions() {
-    std::vector<GameObject*> result;
+std::vector<Sprite*> World::getAllCollisions() {
+    std::vector<Sprite*> result;
  
     for (int i = 0; i < gameObjects.size(); i++) {
-        if (gameObjects[i]->isCollision) {
-            result.push_back(gameObjects[i]);
+        auto sprite = dynamic_cast<Sprite*>(gameObjects[i]);
+        if (sprite && sprite->isCollision) {
+            result.push_back(sprite);
         }
     }
  

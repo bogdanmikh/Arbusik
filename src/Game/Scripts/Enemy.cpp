@@ -3,7 +3,7 @@
 #include "Game/Core/CollisionDetector.hpp"
 
 Enemy::Enemy(Shader* shader, Player* player) 
-    : GameObject("../resources/textures/Enemy.png", shader){
+    : Sprite("../resources/textures/Enemy.png", shader){
     setPosition(0.f, 0.5f, 0.f);
     setSize(1., 1.);
     this->player = player;
@@ -52,7 +52,7 @@ void Enemy::update(double deltaTime) {
         verticalForce = jumpForce;
     }
 
-    if(distanceTo(player) < 0.4f) {
+    if(distanceTo(player) < 0.4f && player->isInvincible == false) {
         player->showGameOver();
     }
     draw();

@@ -1,16 +1,24 @@
 #include "Player.hpp"
 #include "Application/Application.hpp"
+#include "Game/LevelManager/LevelManager.hpp"
 #include "Game/Core/CollisionDetector.hpp"
 #include "Game/Core/Camera.hpp"
 #include "Game/Scripts/GameOverLabel.hpp"
 #include "Game/LevelManager/LevelManager.hpp"
 
+#include <imgui.h>
+
 Player::Player(Shader* shader, Camera* camera)
-    : GameObject("../resources/textures/ball.png", shader)
+    : Sprite("../resources/textures/ball.png", shader)
     , camera(camera)
-    , isPlaying(true) {
+    , isPlaying(true)
+    , isInvincible(false) {
     setPosition(0.f, 0.5f, 0.f);
     setSize(1., 1.);
+}
+
+void Player::jump(float force) {
+    verticalForce = force;
 }
 
 void Player::update(double deltaTime) {
@@ -44,7 +52,7 @@ void Player::update(double deltaTime) {
     }
 
     if(Application::getInstance()->window->isKeyPressed(Key::SPACE) && isGrounded) {
-        verticalForce = jumpForce;
+        jump(jumpForce);
     }
 
     if(Application::getInstance()->window->isKeyPressed(Key::A)
@@ -56,6 +64,26 @@ void Player::update(double deltaTime) {
         translate(horizontalSpeed, 0.f, 0.f);
     }
 
+    ImGui::Begin("Player info", nullptr, 0);
+    ImGui::Text("Player, x: %f, y: %f", getMinX(), getMinY());
+    if(ImGui::Button("RESTART LEVEL", ImVec2(200, 50))) {
+        Application::getInstance()->loadLevel(createCurrentLevel());
+        ImGui::End();
+        return;
+    }
+    if(ImGui::Button(isInvincible ? "MAKE VUNERABLE" : "MAKE INVINCIBLE", ImVec2(200, 50))) {
+        isInvincible = isInvincible == false;
+    }
+    if(ImGui::Button("SUPER JUMP", ImVec2(200, 50))) {
+        jump(15.f);
+    }
+    ImGui::Text("Money: %d of %d", money, maxMoney);
+    if(ImGui::Button("MENU", ImVec2(200, 50))) {
+        Application::getInstance()->loadLevel(createMenuLevel());
+        ImGui::End();
+        return;
+    }
+    ImGui::End();
     draw();
 }
 

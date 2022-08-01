@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Game/GameObject/GameObject.hpp"
+#include "Game/Core/Sprite.hpp"
 #include "Game/Direction.hpp"
 
 class CollisionDetector {
 public:
-    static bool moveAcceptable(GameObject* entity, Direction direction, float amount);
+    static bool moveAcceptable(Sprite* entity, Direction direction, float amount);
 };

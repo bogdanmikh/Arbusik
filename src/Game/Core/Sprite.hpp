@@ -24,6 +24,7 @@ public:
     double distanceTo(Sprite* other);
 
     void draw();
+    bool isCollision;
 private:
     void updateModelMatrix();
 

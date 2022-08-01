@@ -4,7 +4,7 @@
 #include "Game/GameObject/GameObject.hpp"
 #include "Game/Core/Sprite.hpp"
 
-class Ground: public GameObject {
+class Ground: public GameObject, public Sprite {
 public:
     Ground(Shader* shader);
     void update(double deltaTime) override;

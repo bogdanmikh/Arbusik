@@ -2,7 +2,7 @@
 #include "Application/Application.hpp"
 
 bool CollisionDetector::moveAcceptable(
-    GameObject* entity, 
+    Sprite* entity, 
     Direction direction, 
     float amount
 ) {

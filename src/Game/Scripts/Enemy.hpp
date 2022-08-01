@@ -4,7 +4,7 @@
 #include "Game/Core/Sprite.hpp"
 #include "Game/Scripts/Player.hpp"
 
-class Enemy: public GameObject{
+class Enemy: public GameObject, public Sprite {
 public:
     Enemy(Shader* shader, Player* player);
     void update(double deltaTime) override;

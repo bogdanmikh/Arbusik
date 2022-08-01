@@ -5,7 +5,8 @@
 #include <glm/ext.hpp>
 
 Sprite::Sprite(std::string texturePath, Shader* shader)
-    : texture(texturePath)
+    : isCollision(false)
+    , texture(texturePath)
     , position(0.f)
     , shader(shader)
     , size(1.f, 1.f) {

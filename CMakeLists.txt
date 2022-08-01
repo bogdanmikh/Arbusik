@@ -24,12 +24,15 @@ add_executable(Dincka
     src/Game/Core/Sprite.cpp
     src/Game/LevelManager/LevelManager.hpp
     src/Game/LevelManager/LevelManager.cpp
-    src/Game/Levels/FirstLevel.hpp
+    src/Game/Levels/MenuLevel.hpp
+    src/Game/Levels/MenuLevel.cpp
     src/Game/Levels/FirstLevel.cpp
     src/Game/Levels/SecondLevel.hpp
     src/Game/Levels/SecondLevel.cpp
     # src/Game/Levels/ThirdLevel.hpp
     # src/Game/Levels/ThirdLevel.cpp
+    src/Game/Scripts/Menu.hpp
+    src/Game/Scripts/Menu.cpp
     src/Game/Scripts/Player.hpp
     src/Game/Scripts/Player.cpp
     src/Game/Scripts/Ground.hpp
@@ -46,6 +49,13 @@ add_executable(Dincka
     src/Game/Scripts/GameOverLabel.cpp
     src/Game/Scripts/Wood.hpp
     src/Game/Scripts/Wood.cpp
+    src/Renderer/imgui_impl/imgui_impl_glfw.h
+    src/Renderer/imgui_impl/imgui_impl_glfw.cpp
+    src/Renderer/imgui_impl/imgui_impl_opengl3.h
+    src/Renderer/imgui_impl/imgui_impl_opengl3.cpp
+    src/Renderer/imgui_impl/imgui_impl_opengl3_loader.h
+    src/Renderer/ImGui.hpp
+    src/Renderer/ImGui.cpp
     src/Renderer/Renderer.hpp
     src/Renderer/Renderer.cpp
     src/Renderer/IndexBuffer.cpp
@@ -90,6 +100,12 @@ add_subdirectory(vendor/stb_image)
 
 target_link_libraries(Dincka stb_image)
 target_include_directories(Dincka PRIVATE vendor/stb_image)
+
+# imgui
+add_subdirectory(vendor/imgui)
+
+target_link_libraries(Dincka imgui)
+target_include_directories(Dincka PRIVATE vendor/imgui)
 
 # set output directories for all builds (Debug, Release, etc.)
 foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )

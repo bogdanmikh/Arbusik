@@ -1,11 +1,8 @@
 #pragma once
 
-#include "Game/Core/Sprite.hpp"
-
-class GameObject: public Sprite {
+class GameObject {
 public:
-    GameObject(std::string texturePath, Shader* shader);
+    GameObject() = default;
     virtual ~GameObject() = default;
     virtual void update(double deltaTime);
-    bool isCollision;
 };

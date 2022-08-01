@@ -1,6 +1,7 @@
 #include "Application.hpp"
 
 #include "Renderer/Renderer.hpp"
+#include "Renderer/ImGui.hpp"
 #include "Game/LevelManager/LevelManager.hpp"
 
 #include <chrono>
@@ -32,10 +33,13 @@ Application::Application()
     camera = new Camera;
     camera->setFieldOfView(glm::radians(60.f));
     camera->setRotation(0.f, 0.f, 0.f);
-    loadLevel(createCurrentLevel());
+    ImGui_Init(window->getNativeHandle());
+
+    loadLevel(createMenuLevel());
 }
 
 Application::~Application() {
+    ImGui_Shutdown();
     s_instance = nullptr;
     world.deleteAll();
     delete currentLevel;
@@ -65,7 +69,9 @@ void Application::loop() {
         deltaTimeMillis = 0;
         Renderer::clear();
 
+        ImGui_NewFrame();
         world.update(deltaTime);
+        ImGui_EndFrame();
 
         if(window->isKeyPressed(Key::ESCAPE)) {
             close();
@@ -89,6 +95,6 @@ void Application::loadLevel(Level* level) {
     level->start(&world, camera);
 }
 
-void Application::close(){
+void Application::close() {
     window->setShouldClose();
 }

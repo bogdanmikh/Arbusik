@@ -4,13 +4,16 @@
 #include "Game/Core/Sprite.hpp"
 #include "Game/Core/Camera.hpp"
 
-class Player: public GameObject {
+class Player: public GameObject, public Sprite {
 public:
     int money = 0;
     int maxMoney = 0;
     Player(Shader* shader, Camera* camera);
     void update(double deltaTime) override;
     void showGameOver();
+    void jump(float force);
+    
+    bool isInvincible;
 private:
     bool isPlaying;
     float verticalForce;

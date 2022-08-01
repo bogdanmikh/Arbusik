@@ -3,7 +3,7 @@
 #include "Game/LevelManager/LevelManager.hpp"
 
 Door::Door(Shader* shader, Player* player)
-    : GameObject("../resources/textures/Door.png", shader) {
+    : Sprite("../resources/textures/Door.png", shader) {
     setPosition(0.f, 0.5f, 0.f);
     setSize(1., 1.);
     this->player = player;

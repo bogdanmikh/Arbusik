@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject/GameObject.hpp"
+#include "Game/Core/Sprite.hpp"
 
 #include <vector>
 
@@ -11,7 +12,7 @@ public:
     void deleteActor(GameObject* actor);
     void deleteAll();
     std::vector<GameObject*>& getAllActors();
-    std::vector<GameObject*> getAllCollisions();
+    std::vector<Sprite*> getAllCollisions();
 private:
     std::vector<GameObject*> gameObjects;
 };

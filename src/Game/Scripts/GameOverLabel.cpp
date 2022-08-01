@@ -3,7 +3,7 @@
 #include "Game/Scripts/GameOverLabel.hpp"
 
 GameOverLabel::GameOverLabel(Shader* shader, Player* player) 
-    : GameObject("../resources/textures/GameOverLabel.png", shader)
+    : Sprite("../resources/textures/GameOverLabel.png", shader)
     , labelTime(0.0) {
     setPosition(player->getMinX() - 2.5, player->getMinY() - 2.5, 0.f);
     setSize(5.0, 5.0);
