@@ -9,15 +9,15 @@ Money::Money(Shader* shader, Player* player)
 
 void Money::update(double deltaTime) {
     float horizontalSpeed = deltaTime * moveSpeed;
-    if(distanceTo(player) < 0.2f) {
+    if(distanceTo(player) < 0.4f) {
         player->money++;
         Application::getInstance()->world.deleteActor(this);
         return;
     } else if(distanceTo(player) < 2.f) {
-        float moveSpeed = 1.0 * deltaTime;
+        float moveSpeed = 1.1 * deltaTime;
         translate(
-            player->getMinX() < getMinX() ? -moveSpeed : moveSpeed,
-            player->getMinY() < getMinY() ? -moveSpeed : moveSpeed,
+            player->getMinX() < getMinX() ? -moveSpeed : player->getMinX() > getMinX()? moveSpeed : 0,
+            player->getMinY() < getMinY() ? -moveSpeed : player->getMinY() > getMinY() ? moveSpeed : 0,
             0.0
         );
     }

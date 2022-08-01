@@ -40,8 +40,12 @@ add_executable(Dincka
     src/Game/Scripts/Money.cpp
     src/Game/Scripts/Door.hpp
     src/Game/Scripts/Door.cpp
+    src/Game/Scripts/Spring.hpp
+    src/Game/Scripts/Spring.cpp
     src/Game/Scripts/GameOverLabel.hpp
     src/Game/Scripts/GameOverLabel.cpp
+    src/Game/Scripts/Wood.hpp
+    src/Game/Scripts/Wood.cpp
     src/Renderer/Renderer.hpp
     src/Renderer/Renderer.cpp
     src/Renderer/IndexBuffer.cpp

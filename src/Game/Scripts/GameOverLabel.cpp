@@ -11,6 +11,7 @@ GameOverLabel::GameOverLabel(Shader* shader, Player* player)
 
 void GameOverLabel::update(double deltaTime) {
     labelTime += deltaTime;
+    std::cout << "LebelTime: " << labelTime << " deltaTime: " << deltaTime << '\n';
     if(labelTime >= 1) {
         Application::getInstance()->loadLevel(createCurrentLevel());
         return;
