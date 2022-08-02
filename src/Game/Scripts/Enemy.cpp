@@ -32,12 +32,12 @@ void Enemy::update(double deltaTime) {
         }
     }
 
-    if( getMinX() < player->getMinX() && player->getMinX() - getMinX() < distance 
+    if( getMinX() < player->getMinX() && player->getMinX() - getMinX() < distance && player->getMinX() - getMinX() > 0.1f
     && ((getMinY() - player->getMinY() < distance && getMinY() - player->getMinY() >= 0.f) || ((player->getMinY() - getMinY() < distance) && player->getMinY() - getMinY() >= 0.f))) {
         if(CollisionDetector::moveAcceptable(this, Direction::RIGHT, horizontalSpeed)) {
             translate(horizontalSpeed, 0.f, 0.f);
         }
-    } else if(getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance 
+    } else if(getMinX() > player->getMinX() && getMinX() - player->getMinX() < distance && getMinX() - player->getMinX() > 0.1f  
     && ((getMinY() - player->getMinY() < distance && getMinY() - player->getMinY() >= 0.f) || ((player->getMinY() - getMinY() < distance) && player->getMinY() - getMinY() >= 0.f))) {
         if(CollisionDetector::moveAcceptable(this, Direction::LEFT, -horizontalSpeed)) {
             translate(-horizontalSpeed, 0.f, 0.f);

@@ -47,8 +47,8 @@ add_executable(Dincka
     src/Game/Scripts/Spring.cpp
     src/Game/Scripts/GameOverLabel.hpp
     src/Game/Scripts/GameOverLabel.cpp
-    src/Game/Scripts/Wood.hpp
-    src/Game/Scripts/Wood.cpp
+    src/Game/Scripts/Tree.hpp
+    src/Game/Scripts/Tree.cpp
     src/Renderer/imgui_impl/imgui_impl_glfw.h
     src/Renderer/imgui_impl/imgui_impl_glfw.cpp
     src/Renderer/imgui_impl/imgui_impl_opengl3.h

@@ -13,11 +13,13 @@ public:
     void showGameOver();
     void jump(float force);
     
+    bool time_freze;
     bool isInvincible;
+    float time;
 private:
     bool isPlaying;
-    float verticalForce;
     bool isGrounded;
+    float verticalForce;
     float gravity = -9.8f;
     float jumpForce = 6.f;
     float moveSpeed = 3.f;

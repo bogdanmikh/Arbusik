@@ -6,7 +6,7 @@
 #include "Game/Scripts/Money.hpp"
 #include "Game/Scripts/Door.hpp"   
 #include "Game/Scripts/Spring.hpp"   
-#include "Game/Scripts/Wood.hpp"   
+#include "Game/Scripts/Tree.hpp"   
 
 FirstLevel::~FirstLevel() {
     delete shader;
@@ -16,14 +16,15 @@ void FirstLevel::start(World* world, Camera* camera) {
     shader = new Shader("../resources/shaders/vst.glsl", "../resources/shaders/fst.glsl");
     camera->setShader(shader);
 
-    auto wood = new Wood(shader);
-    wood->setSize(0.5f,1.f);
-    wood->setPosition(3.f, -1.5f, 0.f);
-    world->addActor(wood);
+    auto tree = new Tree(shader);
+    tree->setSize(0.5f,1.f);
+    tree->setPosition(3.f, -1.5f, 0.f);
+    world->addActor(tree);
 
     auto player = new Player(shader, camera);
     player->setSize(0.5f,0.5f);
     player->setPosition(3.f, 0.f, 0.f);
+    player->time = 30.f;
     world->addActor(player);
 
     auto enemy_1 = new Enemy(shader, player);
@@ -120,9 +121,4 @@ void FirstLevel::start(World* world, Camera* camera) {
     door->setSize(0.5f, 1.f);
     door->setPosition(13.5f, -1.5f, 0.f);
     world->addActor(door);
-    
-    auto spring1 = new Spring(shader, player, "../resources/textures/Spring1.png");
-    spring1->setSize(0.8f, 0.3f);
-    spring1->setPosition(12.f, -1.5f, 0.f);
-    world->addActor(spring1);
 }

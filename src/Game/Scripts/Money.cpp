@@ -17,7 +17,7 @@ void Money::update(double deltaTime) {
         float moveSpeed = 1.1 * deltaTime;
         translate(
             player->getMinX() < getMinX() ? -moveSpeed : player->getMinX() > getMinX()? moveSpeed : 0,
-            player->getMinY() < getMinY() ? -moveSpeed : player->getMinY() > getMinY() ? moveSpeed : 0,
+            player->getMinY() < getMinY() && getMinY() - player->getMinY() > 0.1f ? -moveSpeed : player->getMinY() > getMinY() && player->getMinY() - getMinY() > 0.1f ? moveSpeed : 0,
             0.0
         );
     }

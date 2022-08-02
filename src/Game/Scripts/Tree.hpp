@@ -3,8 +3,8 @@
 #include "Game/GameObject/GameObject.hpp"
 #include "Game/Core/Sprite.hpp"
 
-class Wood: public GameObject, public Sprite {
+class Tree: public GameObject, public Sprite {
 public:
-    Wood(Shader* shader);
+    Tree(Shader* shader);
     void update(double deltaTime) override;
 };

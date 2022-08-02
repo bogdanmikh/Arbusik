@@ -17,6 +17,7 @@ void SecondLevel::start(World* world, Camera* camera) {
     auto player = new Player(shader, camera);
     player->setSize(0.5f,0.5f);
     player->setPosition(-1.f, 0.f, 0.f);
+    player->time = 30.f;
     world->addActor(player);
 
     auto place1 = new Ground(shader);

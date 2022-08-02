@@ -12,6 +12,7 @@ Player::Player(Shader* shader, Camera* camera)
     : Sprite("../resources/textures/ball.png", shader)
     , camera(camera)
     , isPlaying(true)
+    , time_freze(false)
     , isInvincible(false) {
     setPosition(0.f, 0.5f, 0.f);
     setSize(1., 1.);
@@ -27,7 +28,11 @@ void Player::update(double deltaTime) {
     verticalForce += gravity * deltaTime;
     float horizontalSpeed = deltaTime * moveSpeed;
     float verticalSpeed = deltaTime * verticalForce;
- 
+
+    if(time_freze == false) {
+        time -= deltaTime;
+    }
+
     if(std::abs(verticalForce) > 0.1f) {
         if(verticalForce >= 0.f) {
             if(CollisionDetector::moveAcceptable(this, Direction::UP, verticalSpeed)) {
@@ -64,23 +69,40 @@ void Player::update(double deltaTime) {
         translate(horizontalSpeed, 0.f, 0.f);
     }
 
-    ImGui::Begin("Player info", nullptr, 0);
-    ImGui::Text("Player, x: %f, y: %f", getMinX(), getMinY());
+    if(time <= 0 && time_freze == false) {
+        showGameOver();
+    }
+
+    auto& colors = ImGui::GetStyle().Colors;
+	colors[ImGuiCol_WindowBg] = ImVec4{ 0.f, 0.f, 0.f, 0.f }; 
+    //задать позицию у окна
+    ImGui::SetNextWindowPos(ImVec2(0, 0));
+    ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);  
+    ImGui::Begin("Player info", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoResize);
+    ImGui::Text("Player, x: %f, y: %f", getMinX(), getMinY());  
+    if(time_freze == false) {  
+        ImGui::Text("Time left: %f", time);
+    }
+    //сдвинуть кнопку перед созданием её 
+    ImGui::SetCursorPos(ImVec2(10, 50));
     if(ImGui::Button("RESTART LEVEL", ImVec2(200, 50))) {
-        Application::getInstance()->loadLevel(createCurrentLevel());
         ImGui::End();
+        Application::getInstance()->loadLevel(createCurrentLevel());
         return;
     }
     if(ImGui::Button(isInvincible ? "MAKE VUNERABLE" : "MAKE INVINCIBLE", ImVec2(200, 50))) {
         isInvincible = isInvincible == false;
+    }
+    if(ImGui::Button(time_freze ? "Time Off" : "Time On" , ImVec2(200, 50))) {
+        time_freze = time_freze == false;
     }
     if(ImGui::Button("SUPER JUMP", ImVec2(200, 50))) {
         jump(15.f);
     }
     ImGui::Text("Money: %d of %d", money, maxMoney);
     if(ImGui::Button("MENU", ImVec2(200, 50))) {
-        Application::getInstance()->loadLevel(createMenuLevel());
         ImGui::End();
+        Application::getInstance()->loadLevel(createMenuLevel());
         return;
     }
     ImGui::End();

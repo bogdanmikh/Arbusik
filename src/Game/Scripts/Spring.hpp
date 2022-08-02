@@ -6,7 +6,7 @@
 
 class Spring : public GameObject, public Sprite {
 public:
-    Spring(Shader* shader, Player* player, std::string path);
+    Spring(Shader* shader, Player* player);
     void update(double deltaTime) override;
 private:
     Player *player;

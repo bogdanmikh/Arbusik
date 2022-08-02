@@ -6,19 +6,20 @@
 #include "Game/LevelManager/LevelManager.hpp"
 
 void Menu::update(double deltaTime) {
+    ImVec2 displaySize = ImGui::GetIO().DisplaySize;
     ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
-    ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);  
+    ImGui::SetNextWindowSize(displaySize);  
     ImGui::Begin("Menu", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoResize); 
-    ImGui::SetCursorPos(ImVec2(300, 200));
-    if(ImGui::Button("Level 1", ImVec2(200, 100))) {
+    ImGui::SetCursorPos(ImVec2(100, 200));
+    if(ImGui::Button("Level 1", ImVec2(displaySize.x - 200, 100))) {
         Application::getInstance()->loadLevel(createLevelWithIndex(0));
     }
-    ImGui::SetCursorPos(ImVec2(300, 350));
-    if(ImGui::Button("Level 2", ImVec2(200, 100))) {
+    ImGui::SetCursorPos(ImVec2(100, 350));
+    if(ImGui::Button("Level 2", ImVec2(displaySize.x - 200, 100))) {
         Application::getInstance()->loadLevel(createLevelWithIndex(1));
     }
-    ImGui::SetCursorPos(ImVec2(300, 500));
-    if(ImGui::Button("Exit", ImVec2(200, 100))) {
+    ImGui::SetCursorPos(ImVec2(100, 500));
+    if(ImGui::Button("Exit", ImVec2(displaySize.x - 200, 100))) {
         Application::getInstance()->close();
     }
     ImGui::End();
