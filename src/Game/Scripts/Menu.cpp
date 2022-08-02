@@ -14,11 +14,11 @@ void Menu::update(double deltaTime) {
     if(ImGui::Button("Level 1", ImVec2(displaySize.x - 200, 100))) {
         Application::getInstance()->loadLevel(createLevelWithIndex(0));
     }
-    ImGui::SetCursorPos(ImVec2(100, 350));
+    ImGui::SetCursorPos(ImVec2(100, 400));
     if(ImGui::Button("Level 2", ImVec2(displaySize.x - 200, 100))) {
         Application::getInstance()->loadLevel(createLevelWithIndex(1));
     }
-    ImGui::SetCursorPos(ImVec2(100, 500));
+    ImGui::SetCursorPos(ImVec2(100, 600));
     if(ImGui::Button("Exit", ImVec2(displaySize.x - 200, 100))) {
         Application::getInstance()->close();
     }
