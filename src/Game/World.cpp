@@ -1,4 +1,5 @@
 #include "World.hpp"
+#include <algorithm>
 
 void World::update(double deltaTime) {
     for(int i = 0; i < gameObjects.size(); i++) {
