@@ -19,7 +19,7 @@ public:
 private:
     bool isPlaying;
     bool isGrounded;
-    float verticalForce;
+    float verticalForce = 0.f;
     float gravity = -9.8f;
     float jumpForce = 6.f;
     float moveSpeed = 3.f;
