@@ -16,17 +16,17 @@ void FirstLevel::start(World* world, Camera* camera) {
     shader = new Shader("../resources/shaders/vst.glsl", "../resources/shaders/fst.glsl");
     camera->setShader(shader);
 
+    auto tree = new Tree(shader);
+    tree->setSize(2.f, 1.5f);
+    tree->setPosition(3.f, -1.5f, 0.f);
+    world->addActor(tree);
+
 
     auto player = new Player(shader, camera);
-    player->setSize(0.5f,0.5f);
+    player->setSize(0.5f, 1.f);
     player->setPosition(3.f, 0.f, 0.f);
     player->time = 30.f;
     world->addActor(player);
-
-    auto tree = new Tree(shader);
-    tree->setSize(0.5f,1.f);
-    tree->setPosition(3.f, -1.5f, 0.f);
-    world->addActor(tree);
 
     auto enemy_1 = new Enemy(shader, player);
     enemy_1->setSize(0.5f, 0.5f);

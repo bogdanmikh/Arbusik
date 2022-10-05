@@ -5,8 +5,8 @@
 GameOverLabel::GameOverLabel(Shader* shader, Player* player) 
     : Sprite("../resources/textures/GameOverLabel.png", shader)
     , labelTime(0.0) {
-    setPosition(player->getMinX() - 2.5, player->getMinY() - 2.5, 0.f);
-    setSize(5.0, 5.0);
+    setPosition(player->getMinX() - 2.5, player->getMinY() + 0.2, 0.f);
+    setSize(5.0, 2.5);
 }
 
 void GameOverLabel::update(double deltaTime) {

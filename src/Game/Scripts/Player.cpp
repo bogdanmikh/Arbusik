@@ -9,7 +9,7 @@
 #include <imgui.h>
 
 Player::Player(Shader* shader, Camera* camera)
-    : Sprite("../resources/textures/ball.png", shader)
+    : Sprite("../resources/textures/Mushroomer.png", shader)
     , camera(camera)
     , isPlaying(true)
     , time_freze(false)
