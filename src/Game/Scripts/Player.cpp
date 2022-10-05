@@ -8,6 +8,7 @@
 
 #include <imgui.h>
 
+
 Player::Player(Shader* shader, Camera* camera)
     : Sprite("../resources/textures/Mushroomer.png", shader)
     , camera(camera)
@@ -72,7 +73,7 @@ void Player::update(double deltaTime) {
     if(time <= 0 && time_freze == false) {
         showGameOver();
     }
-
+#if RELEASE
     auto& colors = ImGui::GetStyle().Colors;
 	colors[ImGuiCol_WindowBg] = ImVec4{ 0.f, 0.f, 0.f, 0.f }; 
     //задать позицию у окна
@@ -106,6 +107,7 @@ void Player::update(double deltaTime) {
         return;
     }
     ImGui::End();
+#endif
     draw();
 }
 

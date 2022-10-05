@@ -27,7 +27,7 @@ Application::Application()
     window = new Window("OpenGl", 640, 480);
     Renderer::init();
 
-    Renderer::setClearColor(.235f, .235f, .235f, 1.0f);
+    Renderer::setClearColor(.0f, .102f, .204f, 1.0f);
     timeMillis = getMillis();
 
     camera = new Camera;

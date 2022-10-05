@@ -29,17 +29,17 @@ void FirstLevel::start(World* world, Camera* camera) {
     world->addActor(player);
 
     auto enemy_1 = new Enemy(shader, player);
-    enemy_1->setSize(0.5f, 0.5f);
+    enemy_1->setSize(0.4f, 0.6f);
     enemy_1->setPosition(11.f, 0.f, 0.f);
     world->addActor(enemy_1);
 
     auto enemy_2 = new Enemy(shader, player);
-    enemy_2->setSize(0.5f, 0.5f);
+    enemy_2->setSize(0.4f, 0.6f);
     enemy_2->setPosition(-3.f, 5.f, 0.f);
     world->addActor(enemy_2);
     
     auto enemy_3 = new Enemy(shader, player);
-    enemy_3->setSize(0.5f, 0.5f);
+    enemy_3->setSize(0.4f, 0.6f);
     enemy_3->setPosition(-7.8f, 3.f, 0.f);
     world->addActor(enemy_3);
 

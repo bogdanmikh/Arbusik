@@ -3,7 +3,7 @@
 #include "Game/Core/CollisionDetector.hpp"
 
 Enemy::Enemy(Shader* shader, Player* player) 
-    : Sprite("../resources/textures/Enemy.png", shader){
+    : Sprite("../resources/textures/Gnom.png", shader){
     setPosition(0.f, 0.5f, 0.f);
     setSize(1., 1.);
     this->player = player;
